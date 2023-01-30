@@ -1,0 +1,397 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: url("Asset/background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+                          /* GRID LAYOUT */
+
+.grid-parent{
+    display: grid;
+    grid-template-columns: 0.7fr 1.6fr minmax(100px,.8fr) .8fr 5fr;
+    grid-template-rows: 100px 100px;
+    grid-column-gap: 25px;
+    align-items: start;
+}
+.grid  p{
+    margin: 0px;
+    margin-left: 20px;
+}
+
+                     /* STYLING ITEMS INSIDE GRID */
+
+.grid-child-1{
+   background: url("Asset/bangkok.svg");
+   background-repeat: no-repeat;
+   align-self: stretch;
+   width: 90px;
+}
+.grid-child-2{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+                         /* DROPDOWN */
+
+select{
+    background-color: grey;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+    opacity: 0.7;
+    margin-top: 40px;
+}
+
+.grid-child-6>span{
+    font-size: 23px;
+    margin-left: 23px;
+    color: white;
+    margin-left: 0;
+}
+p > img{
+    width: 50px;
+}
+.grid-child-3{
+    color: white;
+    border-right: 1px solid white;
+    margin-top: 15px;
+}
+[lang|=en]
+{
+    font-size: 18px;
+}
+.grid-child-6 >p{
+    font-size: 30px;
+    margin-left: 0;
+}
+p{
+    color: white;
+    opacity: 0.8;
+}
+.grid-child-4{
+    color: white;
+    margin-top: 15px;
+}
+.grid-child-4> p{
+    margin-left: 0;
+}
+.grid-child-5{
+grid-row: 1 / 3;
+grid-column: 5 / 6;
+display: flex;
+}
+.grid-child-6{
+    grid-column: 2 / 3;
+    min-width: 200px;
+}
+.grid-child-7{
+    grid-column: 3 / 4;
+    color: white;
+    border-right: 1px solid white;
+    margin-top: 15px;
+}
+    
+.grid-child-8{
+    grid-column: 4 / 5;
+    color: white;
+    margin-top: 15px;
+}
+.grid-child-8 > p{
+    margin-left: 0;
+}
+
+                      /* WEATHER TIMELINE */
+
+.weather-icon > p{
+    font-size: 15px;
+    margin: 0;
+    text-align: center;
+}
+.weather-icon{
+    width: 70px;
+    height: 100px;
+    margin-top: 4%;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.weather-icon > img {
+    align-self: center;
+    width: 28px;
+}
+.flex-wrapper
+{
+    display: flex;
+
+}
+.flex-wrapper > p{
+    font-size: 15px;
+    margin-top: 65px;
+}
+
+
+                     /* MIDDLE SECTION  */
+
+/* MIDDLE SECTION TOP */
+.middle{
+    background-color: black;
+    height: 1000px;
+    border-radius: 35px;
+    width: 100%;
+    text-align: center;
+} 
+
+.mid-top{
+    display: grid;
+    grid-template-columns: 55% 45%;
+    padding: 20px;
+}
+.mid-top > div{
+    text-align: end;
+}
+.user-icon{
+display: flex;
+justify-content: flex-end;
+column-gap: 12px;
+margin-right: 10px;
+}
+.user-icon input{
+    max-width: 30px;
+    background-color: #333;
+    color: white;
+    max-height: 15px;
+    border: 1px solid #333;
+}
+.user-icon img{
+    width: 20px;
+    cursor: pointer;
+}
+.user-icon>img:nth-child(1){
+    border-bottom: 2.5px solid blue;
+    margin-bottom: -3px;
+}
+.user-icon p{
+    font-size: 15px;
+}
+
+
+                  /* MIDDLE SECTION MID */
+
+.mid-mid{
+    display: flex;
+    /* grid-template-columns: repeat(5,19%);
+    grid-template-rows: 250px; */
+    margin-left: 10px;
+    grid-auto-flow: column;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    column-gap: 20px;
+    width: 82%;
+    height: 250px;
+    margin-left: 8%;
+}
+.img-1{
+    background-color: rgb(32, 32, 32);
+    background-image: url("Asset/bangkok.svg");
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    position: relative;
+    min-width: 277px;
+    padding: 9px;
+    box-shadow: 5px 5px 8px 2px rgb(90, 90, 90);
+}
+.img-1 img{
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-height: 100%;
+}
+.img-text{
+    position: absolute;
+    top: 0;
+    font-size: 30px;
+    color: aliceblue;
+}
+.img-text span{
+    color: aliceblue;
+}
+.img-icon{
+    position: absolute;
+    display: flex;
+    right: 0;
+    top: 0;
+}
+.img-icon>p{
+    font-size: 28px;
+}
+.side-icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 90px;
+}
+.side-icon img{
+    width: 35%;
+}
+.side-icon p{
+    margin-top: 10%;
+    justify-content: space-between;
+}
+.side-icon div{
+    font-size: 11px;
+    display: flex;
+}
+
+
+/* BOTTOM SECTION LAYOUT */
+
+.bottom{
+    
+}
+.bot-top{
+    color: aliceblue;
+    display: flex;
+    
+}
+.bot-top>div:nth-child(2) img{
+width: 20px;
+}
+
+
+
+/* MEDIA QUERY */
+
+@media only screen
+and (min-width : 600px)
+and (max-width : 1017px){
+    .grid-parent{
+        grid-template-rows: 100px 100px 200px;
+    }
+    .grid-child-5{
+        grid-row:3 / 4 ;
+        grid-column: 1 / 6;
+    }
+    .grid-child-5{
+        justify-content: flex-start;
+        margin-left: -30px;
+        margin: 30px;
+        margin-top: 10px;
+        border-top: 1px solid white;
+    }
+    .flex-wrapper{
+        margin-left: -40px;
+    }
+    .weather-icon{
+        margin-left: 12px;
+    }
+    .mid-mid{
+        margin: 0;
+        margin-left: 60px;
+        justify-content: space-between;
+    }
+    .img-1{
+        min-width: 208px;
+    }
+    .section p{
+      text-align: start;
+    }
+}
+
+@media only screen
+and (min-width : 410px)
+and (max-width : 599px) {
+    .grid-parent{
+        grid-template-rows: repeat(4,minmax(150px,auto));
+        grid-template-columns:repeat(3, 100px);
+        overflow: hidden;
+    }   
+    .grid-child-1{
+        width: 140px;
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+    .grid-child-3,.grid-child-4{
+        grid-row: 2 / 3;
+        margin-top: 40px;
+    }
+    .grid-child-7{
+        grid-row: 3 / 4;
+        grid-column: 1 / 2;
+        margin-top: 0;
+    }
+    .grid-child-8{
+        grid-row: 3 / 4;
+        grid-column: 2 / 3;
+        margin-right: -5px;
+        border-right: 1px solid white;
+        margin-top: 0;
+    }
+    .grid-child-6{
+        grid-row: 3 / 4;
+        grid-column: 3 / 4;
+        margin-left: -13px;  
+        margin-top: -19px;  
+    }
+    .grid-child-5{
+        grid-row: 4 / 5;
+        grid-column: 1 / 3;
+        margin-top:-48px;
+    }
+    .flex-wrapper{
+        border-top: 1px solid white;
+        margin-top: -25px;
+         margin-left: -24px; 
+         max-width: 410px;
+        margin-left: -8px;
+        
+    }
+    .grid-child-2{
+        grid-column: 2 / 4;
+        margin-left: 70px;
+    }
+    select{
+        max-width: 200px;
+    }
+    option{
+        max-width: 100px;
+    }
+    .child{
+        margin-top: 30px;
+    }
+} 
+
+
+ @media only screen and (max-width:1217px) and (min-width:1107px) {
+   .grid-parent{
+     grid-template-columns: 0.7fr 1.6fr minmax(100px,100px) .8fr 5fr;
+     column-gap: 05px;
+     overflow: hidden;
+   }
+   .grid-child-5{
+    margin-left: -40px;
+   }
+}
+
+@media only screen and (max-width:1106px) and (min-width:800px) {
+    .grid-parent{
+        overflow: hidden;
+    }
+    .grid-child-5{
+    margin-left: -40px;
+   }
+   .grid-child-3,.grid-child-4,.grid-child-7,.grid-child-8{
+    max-width: 100px;
+    margin-left: -40px;
+   }
+   .flex-wrapper{
+    justify-content: flex-start;
+    margin-left: -20px;
+   }
+}
+
