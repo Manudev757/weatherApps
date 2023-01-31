@@ -46,6 +46,7 @@ select{
     font-size: 20px;
     opacity: 0.7;
     margin-top: 40px;
+    cursor: pointer;
 }
 
 .grid-child-6>span{
@@ -153,6 +154,10 @@ display: flex;
     padding: 20px;
     margin-left: 9%;
     width: 80%;
+    position: sticky;
+    top: 0;
+    background-color: black;
+    z-index: 1;
 }
 .mid-top > div{
     text-align: end;
@@ -169,6 +174,7 @@ margin-right: 10px;
     color: white;
     max-height: 15px;
     border: 1px solid #333;
+    cursor: pointer;
 }
 .user-icon img{
     width: 20px;
@@ -198,17 +204,24 @@ margin-right: 10px;
     height: 250px;
     margin-left: 8%;
 }
+.mid-mid::-webkit-scrollbar{
+    display: none;
+}
 .img-1{
     background-color: rgb(32, 32, 32);
     /* background: url("Asset/juba.svg"); */
     position: relative;
     min-width: 277px;
     padding: 10px;
-    box-shadow: 5px 5px 8px 2px rgb(90, 90, 90);
+    transition: 0.5s ;
+    box-shadow: 3px 5px 8px 2px rgb(90, 90, 90);
 }
 /* .img-1:hover{
     transform: scale(1.2);
 } */
+.img-1:hover{
+    transform: scale(1.1);
+}
 .main-img{
    max-width: 70%;
    max-height: 220px;
@@ -227,6 +240,7 @@ margin-right: 10px;
     top: 0;
     font-size: 20px;
     color: aliceblue;
+    padding: 10px;
 }
 .img-text span{
     color: aliceblue;
@@ -234,8 +248,9 @@ margin-right: 10px;
 .img-icon{
     position: absolute;
     display: flex;
-    right: 0;
+    right: 13px;
     top: 0;
+    padding: 10px;
 }
 .img-icon>p{
     font-size: 20px;
@@ -308,6 +323,11 @@ margin-right: 10px;
     flex-direction: column;
     padding: 8px;
     row-gap: 9px;
+    transition: 1s;
+}
+.container:hover{
+    transform: scale(1.1);
+    border: 2px solid rgb(252, 14, 2);
 }
 .container>div:nth-child(1){
     display: flex;
@@ -347,7 +367,7 @@ margin-right: 10px;
                          /* MEDIA QUERY */
 
 @media only screen
-and (min-width : 600px)
+and (min-width : 550px)
 and (max-width : 684px){
     .grid-parent{
         grid-template-columns: 1fr 1fr 1fr;
@@ -371,19 +391,31 @@ and (max-width : 684px){
     }
     .bottom{
         margin-left: 0%;
-        min-width: 98%;
+        min-width: 100%;
+    }
+    .user-icon p {
+        font-size: 13px;
     }
     .bot-top{
         grid-template-columns: 2fr 1fr 1fr;
     }
-    .bot-top h2{
-        font-size: 25px;
+    .bot-mid {
+        grid-template-columns:2fr 2fr;
+        max-height: 400px;
+        margin: 8px;
     }
-    .bot-top>div:nth-child(2){
-        text-align: center;
+    .bot-top h2{
+        font-size: 22px;
+    }
+    .bot-top>div:nth-child(2),.bot-top>div:nth-child(3){
+        text-align: start;
+        font-size: 18px;
     }
     .cont-2 p{
         text-align: start;
+    }
+    .middle {
+        height: 1050px;
     }
 }                    
 
