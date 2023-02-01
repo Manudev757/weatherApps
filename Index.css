@@ -441,6 +441,13 @@ p {
   .bottom {
     margin-left: 8%;
   }
+  .bot-top > div:nth-child(2) {
+    font-size: 16px;
+  }
+  .bot-top > div:nth-child(3) {
+    font-size: 16px;
+  }
+
   .bot-mid {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -450,11 +457,12 @@ p {
     font-size: 20px;
   }
   .bot-top {
-    grid-template-columns: 2fr 1fr 1.5fr;
+    grid-template-columns: 3.5fr 1.5fr 1.5fr;
   }
   .bot-top div {
     text-align: center;
   }
+
   .container > div {
     display: flex;
     justify-content: space-between;
@@ -477,6 +485,9 @@ p {
   .grid-child-8 {
     max-width: 100px;
     margin-left: -40px;
+  }
+  .bot-top {
+    grid-template-columns: 3fr 1fr 1fr;
   }
   .flex-wrapper {
     justify-content: flex-start;
