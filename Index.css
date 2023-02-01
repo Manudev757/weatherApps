@@ -367,7 +367,12 @@ p {
   .middle {
     margin-top: 80px;
     min-width: 100%;
-    margin-left: 20px;
+  }
+  .img-1 {
+    min-width: 211px;
+  }
+  .weather-icon {
+    width: 60px;
   }
   .section p {
     text-align: start;
@@ -389,6 +394,7 @@ p {
   }
   .bot-top h2 {
     font-size: 22px;
+    text-align: center;
   }
   .bot-top > div:nth-child(2),
   .bot-top > div:nth-child(3) {
