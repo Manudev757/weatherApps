@@ -20,6 +20,7 @@ body {
 .grid p {
   margin: 0px;
   margin-left: 20px;
+  font-size: 23px;
 }
 
 /* STYLING ITEMS INSIDE GRID */
@@ -64,7 +65,7 @@ p > img {
   margin-top: 15px;
 }
 [lang|="en"] {
-  font-size: 18px;
+  font-size: 20px;
 }
 .grid-child-6 > p {
   font-size: 30px;
@@ -186,14 +187,12 @@ p {
 
 .mid-mid {
   display: flex;
-  /* grid-template-columns: repeat(5,19%);
-    grid-template-rows: 250px; */
   margin-left: 10px;
   grid-auto-flow: column;
   overflow-x: scroll;
   overflow-y: hidden;
-  column-gap: 20px;
-  width: 82%;
+  column-gap: 30px;
+  width: 85%;
   height: 250px;
   margin-left: 8%;
 }
@@ -202,18 +201,14 @@ p {
 }
 .img-1 {
   background-color: rgb(32, 32, 32);
-  /* background: url("Asset/juba.svg"); */
   position: relative;
   min-width: 277px;
   padding: 10px;
   transition: 0.5s;
   box-shadow: 3px 5px 8px 2px rgb(90, 90, 90);
 }
-/* .img-1:hover{
-    transform: scale(1.2);
-} */
 .img-1:hover {
-  transform: scale(1.1);
+  transform: scale(1.07);
 }
 .main-img {
   max-width: 70%;
@@ -223,10 +218,7 @@ p {
   bottom: 0;
 }
 .img-icon img {
-  /* background-size: cover;
-    background-repeat: no-repeat; */
   width: 20px;
-  /* max-height: 100%; */
 }
 .img-text {
   position: absolute;
@@ -353,7 +345,7 @@ p {
 
 @media only screen and (min-width: 550px) and (max-width: 684px) {
   .grid-parent {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1.3fr 1.5fr;
     grid-template-rows: 1fr 0.5fr;
   }
   .grid-child-5 {
@@ -409,7 +401,7 @@ p {
   }
 }
 
-@media only screen and (min-width: 685px) and (max-width: 1015px) {
+@media only screen and (min-width: 685px) and (max-width: 1016px) {
   .grid-parent {
     grid-template-rows: 100px 100px 200px;
     grid-template-columns: auto;
@@ -473,9 +465,6 @@ p {
   }
 }
 @media only screen and (min-width: 1016px) and (max-width: 1300px) {
-  /* .grid-parent{
-        overflow: hidden;
-    } */
   .grid-child-5 {
     margin-left: -40px;
   }
@@ -483,15 +472,15 @@ p {
   .grid-child-4,
   .grid-child-7,
   .grid-child-8 {
-    max-width: 100px;
-    margin-left: -40px;
+    max-width: 121px;
+    margin-left: -14px;
   }
   .bot-top {
     grid-template-columns: 3fr 1fr 1fr;
   }
   .flex-wrapper {
     justify-content: flex-start;
-    margin-left: -20px;
+    margin-left: 25px;
   }
   .middle {
     min-width: 100%;
