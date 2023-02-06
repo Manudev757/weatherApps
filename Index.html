@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Weather</title>
+  </head>
+  <body>
+    <div class="grid-parent">
+      <div class="grid grid-child-1">
+        <img id="bg-img" src="Asset/nome.svg" width="90px" />
+      </div>
+
+      <div class="grid grid-child-2">
+        <select id="dropdown" onchange="weather()">
+          <!-- <option>Select a City</option> -->
+        </select>
+      </div>
+
+      <div class="grid grid-child-3">
+        <p>Temp <sup>o</sup>C</p>
+        <br />
+        <p id="temp" lang="en">25 C</p>
+      </div>
+
+      <div class="grid grid-child-4">
+        <p>Humidity</p>
+        <br />
+        <p id="humid" lang="en">26%</p>
+        <p></p>
+      </div>
+
+      <div class="grid grid-child-5">
+        <div class="flex-wrapper"></div>
+      </div>
+
+      <div class="grid grid-child-6">
+        <p id="time">10:10:<img id="img-i" src="Asset/amState.svg" /></p>
+        <div id="tdyDate"></div>
+      </div>
+
+      <div class="grid grid-child-7">
+        <p>Temp F</p>
+        <br />
+        <p id="fah" lang="en">78 F</p>
+      </div>
+
+      <div class="grid grid-child-8">
+        <p>Percipitation</p>
+        <br />
+        <p id="precipitation" lang="en">0%</p>
+      </div>
+    </div>
+    <!-- Responsive -->
+
+    <!-- MIDDLE SECTION -->
+
+    <div class="middle">
+      <!-- TOP SECTION OF MID -->
+
+      <div class="mid-top">
+        <div class="section"><p>Top cities around world</p></div>
+        <div class="user-icon">
+          <img id="sun" onclick="sunny()" src="Asset/sunnyIcon.svg" />
+          <img id="snow" onclick="snow()" src="Asset/snowflakeIcon.svg" />
+          <img id="rain" onclick="rainy()" src="Asset/rainyIcon.svg" />
+          <p>Display Top</p>
+          <input
+            id="input_box"
+            type="number"
+            min="3"
+            max="7"
+            onchange="rainy()"
+          />
+        </div>
+      </div>
+
+      <!-- MIDDLE SECTION OF MID -->
+
+      <div class="scroll">
+        <button id="button1" onclick="leftScroll()"><</button>
+        <div id="mid" class="mid-mid">
+          <div class="img-1">
+            <img
+              class="main-img"
+              src="Asset/${
+              weatherData[keys[k]].cityName
+            }.svg"
+            />
+            <div class="img-text">${weatherData[keys[k]].cityName}</div>
+            <div class="img-icon">
+              <img src="Asset/sunnyIcon.svg" />&nbsp;
+              <p>${weatherData[keys[k]].temperature}</p>
+            </div>
+            <div class="timeDate">
+              <div>fghj</div>
+              <div>6789</div>
+            </div>
+            <div class="side-icon">
+              <div>
+                <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+                <p>${weatherData[keys[k]].humidity}</p>
+              </div>
+              <div>
+                <img
+                  src="Asset/precipitationIcon.svg"
+                />&nbsp;&nbsp;&nbsp;&nbsp;
+                <p>${weatherData[keys[k]].precipitation}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button id="button2" onclick="rightScroll()">></button>
+      </div>
+
+      <!-- BOTTOM SECTION -->
+      <br />
+      <br />
+      <div class="bottom">
+        <div class="bot-top">
+          <h2>Cities across continents at a glance</h2>
+          <div>Continent Name&nbsp;&nbsp;<img src="Asset/arrowDown.svg" /></div>
+          <div>Temperature&nbsp;&nbsp;<img src="Asset/arrowUp.svg" /></div>
+        </div>
+
+        <div class="bot-mid">
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="cont-1">
+              <p>Asia</p>
+              <p>38<sup>o</sup>C</p>
+            </div>
+            <div class="cont-2">
+              <p>Bangkok, 10:10 AM</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>53%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="data.json"></script>
+    <script type="text/javascript" src="weatherData.js"></script>
+  </body>
+</html>
