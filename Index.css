@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  /* font-family: 'PT Sans Narrow', sans-serif; */
 }
 body {
   background-image: url("Asset/background.svg");
@@ -15,7 +14,7 @@ body {
   display: grid;
   grid-template-columns: 0.7fr 1.6fr minmax(100px, 0.8fr) 0.8fr 5fr;
   grid-template-rows: 100px 100px;
-  grid-column-gap: 25px;
+  grid-column-gap: 18px;
   align-items: start;
   font-size: 23px;
 }
@@ -47,7 +46,7 @@ body {
 
 /* DROPDOWN */
 
-select {
+#data {
   background-color: grey;
   width: 100%;
   padding: 10px;
@@ -392,7 +391,7 @@ p {
 
 @media only screen and (min-width: 550px) and (max-width: 684px) {
   .grid-parent {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1.3fr 1.5fr;
     grid-template-rows: 1fr 0.5fr;
   }
   .grid-child-5 {
@@ -542,15 +541,15 @@ p {
   .grid-child-4,
   .grid-child-7,
   .grid-child-8 {
-    max-width: 100px;
-    margin-left: -40px;
+    max-width: 121px;
+    margin-left: -14px;
   }
   .bot-top {
     grid-template-columns: 3fr 1fr 1fr;
   }
   .flex-wrapper {
     justify-content: flex-start;
-    margin-left: -20px;
+    margin-left: 25px;
   }
   .scroll > #button1 {
     left: 0px;

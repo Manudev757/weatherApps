@@ -21,26 +21,45 @@
       </div>
 
       <div class="grid grid-child-2">
-        <select id="dropdown" onchange="weather()">
-          <!-- <option>Select a City</option> -->
-        </select>
+        <!-- <select id="dropdown" onchange="weather()">
+        </select> -->
+        <input
+          list="browsers"
+          name="browser"
+          id="data"
+          value="nome"
+          onchange="weather()"
+        />
+        <datalist id="browsers">
+          <option></option>
+        </datalist>
       </div>
 
       <div class="grid grid-child-3">
         <p>Temp <sup>o</sup>C</p>
         <br />
-        <p id="temp" lang="en">25 C</p>
+        <p id="temp" lang="en">Nil</p>
       </div>
 
       <div class="grid grid-child-4">
         <p>Humidity</p>
         <br />
-        <p id="humid" lang="en">26%</p>
+        <p id="humid" lang="en">Nil</p>
         <p></p>
       </div>
 
       <div class="grid grid-child-5">
-        <div class="flex-wrapper"></div>
+        <div class="flex-wrapper">
+          <div class="weather-icon">
+            <p id="time11">NIL</p>
+            <br />
+            <p>|</p>
+            <br />
+            <img src="Asset/sunnyIcon.svg" /><br />
+            <p id="nxtTime1">Nil</p>
+            <br />
+          </div>
+        </div>
       </div>
 
       <div class="grid grid-child-6">
@@ -51,13 +70,13 @@
       <div class="grid grid-child-7">
         <p>Temp F</p>
         <br />
-        <p id="fah" lang="en">78 F</p>
+        <p id="fah" lang="en">Nil</p>
       </div>
 
       <div class="grid grid-child-8">
         <p>Percipitation</p>
         <br />
-        <p id="precipitation" lang="en">0%</p>
+        <p id="precipitation" lang="en">Nil</p>
       </div>
     </div>
     <!-- Responsive -->
@@ -78,7 +97,7 @@
             id="input_box"
             type="number"
             min="3"
-            max="7"
+            max="10"
             onchange="rainy()"
           />
         </div>

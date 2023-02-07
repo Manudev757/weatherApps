@@ -1,13 +1,14 @@
 // extracting data from data.json
 
 var weatherData;
-
+var a = 1;
 fetch("data.json")
   .then((data) => data.json())
   .then((result) => {
     weatherData = result;
     console.log(result);
     setWeather();
+    weather();
   });
 
 // SETTING THE DROPDONW BOX AND
@@ -18,9 +19,10 @@ function setWeather() {
   var option = ``;
 
   for (var i = 0; i < keys.length; i++) {
-    option += `<option>${keys[i]}</option>`;
+    option += `<option value=${keys[i]}></option>`;
   }
-  document.querySelector("#dropdown").innerHTML = option;
+
+  document.querySelector("#browsers").innerHTML = option;
   document.getElementById("sun").style.borderBottom = "2.5px solid blue";
   document.getElementById("snow").style.borderBottom = "none";
   document.getElementById("rain").style.borderBottom = "none";
@@ -83,14 +85,18 @@ function setWeather() {
 
 // SETTING THE CURRENT TIME,DATE, WEATHER AND
 //  WEATHER TIMELINE OF VARIOUS CITIES in top section
-
 function weather() {
   var keys = Object.keys(weatherData);
-  var dropdown = document.getElementById("dropdown");
-  var name = dropdown.options[dropdown.selectedIndex].value;
+  var name = document.getElementById("data").value;
 
+  if (name === "") {
+    document.getElementById("data").style.border = "2px solid red";
+  }
+  var b = true;
+  console.log(name);
   for (var j = 0; j < keys.length; j++) {
     if (name === keys[j]) {
+      b = false;
       var temp = weatherData[keys[j]];
       var nxt, tdyDate;
       var timeZone = temp.timeZone;
@@ -120,13 +126,23 @@ function weather() {
           src="Asset/${day}.svg"
           />`;
 
+      var icon;
+      if (parseInt(temp.temperature) > 29) icon = "sunnyIcon";
+      else if (parseInt(temp.temperature) < 18) icon = "rainyIcon";
+      else if (
+        parseInt(temp.temperature) >= 23 &&
+        parseInt(temp.temperature) <= 29
+      )
+        icon = "precipitationIcon";
+      else icon = "windyIcon";
+
       setTimeLine += `
       <div class="weather-icon">
       <p id="time11">Now</p>
       <br />
       <p>|</p>
       <br />
-      <img src="Asset/sunnyIcon.svg" /><br />
+      <img src="Asset/${icon}.svg" /><br />
       <p id="nxtTime1">${parseInt(temp.temperature)}</p>
       <br />
       </div>
@@ -198,7 +214,7 @@ function weather() {
           <br />
           <p>|</p>
           <br />
-          <img src="Asset/sunnyIcon.svg" /><br />
+          <img src="Asset/precipitationIcon.svg" /><br />
           <p id="nxtTime1">${parseInt(temp.temperature)}</p>
           <br />
           </div>
@@ -207,6 +223,13 @@ function weather() {
         }
       }
     }
+  }
+  if (b != true) {
+    document.getElementById("data").style.border = "none";
+    document.getElementById("data").style.backgroundColor = "grey";
+  } else {
+    document.getElementById("data").style.border = "3px solid red";
+    document.getElementById("data").style.backgroundColor = "#E82C2C";
   }
 }
 
@@ -321,7 +344,7 @@ function snow() {
           }.svg" />
           <div class="img-text">${weatherData[keys[k]].cityName}</div>
           <div class="img-icon">
-            <img src="Asset/sunnyIcon.svg" />&nbsp;
+            <img src="Asset/snowflakeIcon.svg" />&nbsp;
             <p>${weatherData[keys[k]].temperature}</p>
           </div>
           <div class="timeDate">
@@ -387,13 +410,14 @@ function rainy() {
 
       max += 1;
       if (max <= input_value && max > 3) {
+        console.log(max);
         cities += `<div class="img-1">
           <img class="main-img" src="Asset/${
             weatherData[keys[k]].cityName
           }.svg" />
           <div class="img-text">${weatherData[keys[k]].cityName}</div>
           <div class="img-icon">
-            <img src="Asset/sunnyIcon.svg" />&nbsp;
+            <img src="Asset/rainyIcon.svg" />&nbsp;
             <p>${weatherData[keys[k]].temperature}</p>
           </div>
           <div class="timeDate">
@@ -413,13 +437,14 @@ function rainy() {
           </div>
         </div>`;
       } else if (max <= 3) {
+        console.log(max);
         cities += `<div class="img-1">
         <img class="main-img" src="Asset/${
           weatherData[keys[k]].cityName
         }.svg" />
         <div class="img-text">${weatherData[keys[k]].cityName}</div>
         <div class="img-icon">
-          <img src="Asset/sunnyIcon.svg" />&nbsp;
+          <img src="Asset/rainyIcon.svg" />&nbsp;
           <p>${weatherData[keys[k]].temperature}</p>
         </div>
         <div class="timeDate">
