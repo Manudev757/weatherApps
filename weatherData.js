@@ -26,7 +26,6 @@ function setWeather() {
   document.getElementById("sun").style.borderBottom = "2.5px solid blue";
   document.getElementById("snow").style.borderBottom = "none";
   document.getElementById("rain").style.borderBottom = "none";
-  document.getElementById("mid").style.justifyContent = "center";
   var t,
     p,
     h,
@@ -93,7 +92,6 @@ function weather() {
     document.getElementById("data").style.border = "2px solid red";
   }
   var b = true;
-  console.log(name);
   for (var j = 0; j < keys.length; j++) {
     if (name === keys[j]) {
       b = false;
@@ -108,7 +106,9 @@ function weather() {
       var f = parseInt(temp.temperature);
       var farenheit = (f * 9) / 5 + 32;
       document.getElementById("fah").innerHTML = Math.round(farenheit) + " F";
-      document.getElementById("bg-img").src = `Asset/${name}.svg`;
+      document.querySelector(
+        ".grid-child-1"
+      ).innerHTML = `<img id="bg-img" src="Asset/${name}.svg" width="90px" />`;
 
       tdyDate = temp.dateAndTime;
       tdyDate = tdyDate.split(",", 1);
@@ -142,7 +142,7 @@ function weather() {
       <br />
       <p>|</p>
       <br />
-      <img src="Asset/${icon}.svg" /><br />
+      <img id="w_icon" src="Asset/${icon}.svg" /><br />
       <p id="nxtTime1">${parseInt(temp.temperature)}</p>
       <br />
       </div>
@@ -157,7 +157,7 @@ function weather() {
               <br />
               <p>|</p>
               <br />
-              <img src="Asset/sunnyIcon.svg" /><br />
+              <img id="w_icon" src="Asset/sunnyIcon.svg" /><br />
               <p id="nxtTime1">${nxt}</p>
               <br />
             </div>
@@ -171,7 +171,7 @@ function weather() {
               <br />
               <p>|</p>
               <br />
-              <img src="Asset/rainyIcon.svg" /><br />
+              <img id="w_icon" src="Asset/rainyIcon.svg" /><br />
               <p id="nxtTime1">${nxt}</p>
               <br />
             </div>
@@ -185,7 +185,7 @@ function weather() {
               <br />
               <p>|</p>
               <br />
-              <img src="Asset/precipitationIcon.svg" /><br />
+              <img id="w_icon" src="Asset/precipitationIcon.svg" /><br />
               <p id="nxtTime1">${nxt}</p>
               <br />
             </div>
@@ -200,7 +200,7 @@ function weather() {
               <br />
               <p>|</p>
               <br />
-              <img src="Asset/windyIcon.svg" /><br />
+              <img id="w_icon" src="Asset/windyIcon.svg" /><br />
               <p id="nxtTime1">${nxt}</p>
               <br />
             </div>
@@ -214,7 +214,7 @@ function weather() {
           <br />
           <p>|</p>
           <br />
-          <img src="Asset/precipitationIcon.svg" /><br />
+          <img id="w_icon" src="Asset/precipitationIcon.svg" /><br />
           <p id="nxtTime1">${parseInt(temp.temperature)}</p>
           <br />
           </div>
@@ -227,9 +227,27 @@ function weather() {
   if (b != true) {
     document.getElementById("data").style.border = "none";
     document.getElementById("data").style.backgroundColor = "grey";
+    document.querySelector(
+      ".grid-child-1"
+    ).innerHTML = `<img id="bg-img" src="Asset/${name}.svg" width="90px" />`;
   } else {
     document.getElementById("data").style.border = "3px solid red";
     document.getElementById("data").style.backgroundColor = "#E82C2C";
+    document.querySelector(
+      ".grid-child-1"
+    ).innerHTML = `<div class="nil">Invalid City</div>`;
+    document.getElementById("fah").innerHTML = "Nil";
+    document.getElementById("precipitation").innerHTML = "Nil";
+    document.getElementById("temp").innerHTML = "Nil";
+    document.getElementById("humid").innerHTML = "Nil";
+    document.querySelectorAll("#nxtTime1").forEach((elem) => {
+      elem.innerText = "Nil";
+    });
+    document.querySelectorAll("#w_icon").forEach((elem) => {
+      elem.src = "Nil";
+    });
+    document.getElementById("time").innerHTML = "Nil";
+    document.getElementById("tdyDate").innerHTML = "Nil";
   }
 }
 
@@ -297,7 +315,6 @@ function sunny() {
         </div>`;
     }
     document.querySelector(".mid-mid").innerHTML = cities;
-    document.getElementById("mid").style.justifyContent = "center";
   }
   if (count <= 4) {
     document.getElementById("button1").style.visibility = "hidden";
@@ -365,7 +382,6 @@ function snow() {
         </div>`;
     }
     document.querySelector(".mid-mid").innerHTML = cities;
-    document.getElementById("mid").style.justifyContent = "center";
   }
   if (count < 4) {
     document.getElementById("button1").style.visibility = "hidden";
@@ -387,7 +403,7 @@ function rainy() {
   var max = 0,
     time;
   var cities = ``;
-  document.getElementById("mid").style.justifyContent = "center";
+
   for (var k = 0; k < keys.length; k++) {
     count++;
     t = parseInt(weatherData[keys[k]].temperature);
@@ -473,7 +489,6 @@ function rainy() {
   } else {
     document.getElementById("button1").style.visibility = "visible";
     document.getElementById("button2").style.visibility = "visible";
-    document.getElementById("mid").style.justifyContent = "flex-start";
   }
 }
 
@@ -481,9 +496,9 @@ function rainy() {
 
 function leftScroll() {
   const left = document.querySelector(".mid-mid");
-  left.scrollBy(100, 0);
+  left.scrollBy(290, 0);
 }
 function rightScroll() {
   const right = document.querySelector(".mid-mid");
-  right.scrollBy(-100, 0);
+  right.scrollBy(-290, 0);
 }

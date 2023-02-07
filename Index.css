@@ -30,6 +30,11 @@ body {
   align-self: stretch;
   width: 90px;
 }
+.nil {
+  color: red;
+  text-align: center;
+  margin-top: 40%;
+}
 #temp,
 #humid,
 #fah,
