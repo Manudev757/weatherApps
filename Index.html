@@ -109,106 +109,31 @@
         <button id="button1" onclick="leftScroll()"><</button>
         <div id="mid" class="mid-mid">
           <div class="img-1">
-            <img class="main-img" src="Asset/bangkok.svg" />
-            <!-- <img src="Asset/bangkok.svg"> -->
-            <div class="img-text">Bangkok</div>
+            <img
+              class="main-img"
+              src="Asset/${
+              weatherData[keys[k]].cityName
+            }.svg"
+            />
+            <div class="img-text">${weatherData[keys[k]].cityName}</div>
             <div class="img-icon">
               <img src="Asset/sunnyIcon.svg" />&nbsp;
-              <p>25 <sup>o</sup>C</p>
+              <p>${weatherData[keys[k]].temperature}</p>
             </div>
-
+            <div class="timeDate">
+              <div>fghj</div>
+              <div>6789</div>
+            </div>
             <div class="side-icon">
               <div>
                 <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>53%</p>
-              </div>
-              <div>
-                <img src="Asset/windyIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>5 Km/h</p>
+                <p>${weatherData[keys[k]].humidity}</p>
               </div>
               <div>
                 <img
                   src="Asset/precipitationIcon.svg"
                 />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>10%</p>
-              </div>
-            </div>
-          </div>
-          <div class="img-1">
-            <img class="main-img" src="Asset/bangkok.svg" />
-            <!-- <img src="Asset/bangkok.svg"> -->
-            <div class="img-text">Bangkok</div>
-            <div class="img-icon">
-              <img src="Asset/sunnyIcon.svg" />&nbsp;
-              <p>25 <sup>o</sup>C</p>
-            </div>
-
-            <div class="side-icon">
-              <div>
-                <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>53%</p>
-              </div>
-              <div>
-                <img src="Asset/windyIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>5 Km/h</p>
-              </div>
-              <div>
-                <img
-                  src="Asset/precipitationIcon.svg"
-                />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>10%</p>
-              </div>
-            </div>
-          </div>
-          <div class="img-1">
-            <img class="main-img" src="Asset/bangkok.svg" />
-            <!-- <img src="Asset/bangkok.svg"> -->
-            <div class="img-text">Bangkok</div>
-            <div class="img-icon">
-              <img src="Asset/sunnyIcon.svg" />&nbsp;
-              <p>25 <sup>o</sup>C</p>
-            </div>
-
-            <div class="side-icon">
-              <div>
-                <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>53%</p>
-              </div>
-              <div>
-                <img src="Asset/windyIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>5 Km/h</p>
-              </div>
-              <div>
-                <img
-                  src="Asset/precipitationIcon.svg"
-                />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>10%</p>
-              </div>
-            </div>
-          </div>
-          <div class="img-1">
-            <img class="main-img" src="Asset/bangkok.svg" />
-            <!-- <img src="Asset/bangkok.svg"> -->
-            <div class="img-text">Bangkok</div>
-            <div class="img-icon">
-              <img src="Asset/sunnyIcon.svg" />&nbsp;
-              <p>25 <sup>o</sup>C</p>
-            </div>
-
-            <div class="side-icon">
-              <div>
-                <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>53%</p>
-              </div>
-              <div>
-                <img src="Asset/windyIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>5 Km/h</p>
-              </div>
-              <div>
-                <img
-                  src="Asset/precipitationIcon.svg"
-                />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>10%</p>
+                <p>${weatherData[keys[k]].precipitation}</p>
               </div>
             </div>
           </div>
@@ -373,9 +298,7 @@
         </div>
       </div>
     </div>
-    <<<<<<< HEAD
     <script type="text/javascript" src="data.json"></script>
     <script type="text/javascript" src="weatherData.js"></script>
-    ======= >>>>>>> webtips_develop
   </body>
 </html>
