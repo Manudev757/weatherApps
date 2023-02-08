@@ -7,6 +7,8 @@ fetch("data.json")
     weatherData = result;
     setWeather();
     weather();
+    //function call from 2-nd Task not included for task-1
+    sunny();
   });
 // SETTING THE DATALIST BOX AND
 // THE CITY IMAGES IN MID SECTION
@@ -153,3 +155,245 @@ function weather() {
 }
 //To set The time Live Running on our screen
 setInterval(weather, 1000);
+
+// ******** SUNNY function - 2nd Task function*******
+
+function sunny() {
+  document.getElementById("sun").style.borderBottom = "2.5px solid blue";
+  document.getElementById("snow").style.borderBottom = "none";
+  document.getElementById("rain").style.borderBottom = "none";
+  var keys = Object.keys(weatherData);
+  var t,
+    p,
+    h,
+    count = 0;
+  var cities = ``;
+  var time;
+
+  for (var k = 0; k < keys.length; k++) {
+    t = parseInt(weatherData[keys[k]].temperature);
+    p = parseInt(weatherData[keys[k]].precipitation);
+    h = parseInt(weatherData[keys[k]].humidity);
+
+    if (t > 29 && h < 50 && p >= 50) {
+      tdyDate = weatherData[keys[k]].dateAndTime;
+      tdyDate = tdyDate.split(",", 1);
+      time = weatherData[keys[k]].timeZone;
+      var dates = new Date().toLocaleString("en-US", {
+        timeZone: time,
+        timeStyle: "medium",
+        hourCycle: "h24",
+      });
+
+      var ampm = parseInt(dates.slice(0, 2));
+      dates = dates.slice(0, 5);
+      var day = ampm >= 12 ? "Pm" : "Am";
+      count++;
+      cities += `<div class="img-1">
+          <img class="main-img" src="Asset/${
+            weatherData[keys[k]].cityName
+          }.svg" />
+          <div class="img-text">${weatherData[keys[k]].cityName}</div>
+          <div class="img-icon">
+            <img src="Asset/sunnyIcon.svg" />&nbsp;
+            <p>${weatherData[keys[k]].temperature}</p>
+          </div>
+          <div class="timeDate">
+          <div>${dates + " " + day}</div>
+          <div>${tdyDate}</div>
+        </div>
+          <div class="side-icon">
+            <div>
+              <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+              <p>${weatherData[keys[k]].humidity}</p>
+            </div>
+            <div>
+              <img src="Asset/precipitationIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+              <p>${weatherData[keys[k]].precipitation}</p>
+            </div>
+          </div>
+        </div>`;
+    }
+    document.querySelector(".mid-mid").innerHTML = cities;
+  }
+  if (count <= 4) {
+    document.getElementById("button1").style.visibility = "hidden";
+    document.getElementById("button2").style.visibility = "hidden";
+  }
+}
+
+//SNOW FALL
+function snow() {
+  document.getElementById("sun").style.borderBottom = "none";
+  document.getElementById("snow").style.borderBottom = "2.5px solid blue";
+  document.getElementById("rain").style.borderBottom = "none";
+  var keys = Object.keys(weatherData);
+  var t,
+    p,
+    h,
+    count = 0,
+    time;
+  var cities = ``;
+  for (var k = 0; k < keys.length; k++) {
+    t = parseInt(weatherData[keys[k]].temperature);
+    p = parseInt(weatherData[keys[k]].precipitation);
+    h = parseInt(weatherData[keys[k]].humidity);
+    if (t > 20 && t < 28 && h > 50 && p < 50) {
+      tdyDate = weatherData[keys[k]].dateAndTime;
+      tdyDate = tdyDate.split(",", 1);
+      time = weatherData[keys[k]].timeZone;
+      var dates = new Date().toLocaleString("en-US", {
+        timeZone: time,
+        timeStyle: "medium",
+        hourCycle: "h24",
+      });
+
+      var ampm = parseInt(dates.slice(0, 2));
+      dates = dates.slice(0, 5);
+      var day = ampm >= 12 ? "Pm" : "Am";
+      var date = weatherData[keys[k]].dateAndTime;
+
+      count++;
+      cities += `<div class="img-1">
+          <img class="main-img" src="Asset/${
+            weatherData[keys[k]].cityName
+          }.svg" />
+          <div class="img-text">${weatherData[keys[k]].cityName}</div>
+          <div class="img-icon">
+            <img src="Asset/snowflakeIcon.svg" />&nbsp;
+            <p>${weatherData[keys[k]].temperature}</p>
+          </div>
+          <div class="timeDate">
+          <div>${dates + " " + day}</div>
+          <div>${tdyDate}</div>
+        </div>
+          <div class="side-icon">
+            <div>
+              <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+              <p>${weatherData[keys[k]].humidity}</p>
+            </div>
+
+            <div>
+              <img src="Asset/precipitationIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+              <p>${weatherData[keys[k]].precipitation}</p>
+            </div>
+          </div>
+        </div>`;
+    }
+    document.querySelector(".mid-mid").innerHTML = cities;
+  }
+  if (count < 4) {
+    document.getElementById("button1").style.visibility = "hidden";
+    document.getElementById("button2").style.visibility = "hidden";
+  }
+}
+// RAINY;
+function rainy() {
+  document.getElementById("sun").style.borderBottom = "none";
+  document.getElementById("snow").style.borderBottom = "none";
+  document.getElementById("rain").style.borderBottom = "2.5px solid blue";
+  var keys = Object.keys(weatherData);
+  var input_value = document.getElementById("input_box").value;
+  var t,
+    h,
+    count = 0;
+  var max = 0,
+    time;
+  var cities = ``;
+
+  for (var k = 0; k < keys.length; k++) {
+    count++;
+    t = parseInt(weatherData[keys[k]].temperature);
+    p = parseInt(weatherData[keys[k]].precipitation);
+    h = parseInt(weatherData[keys[k]].humidity);
+    if (t < 20 && h >= 50) {
+      tdyDate = weatherData[keys[k]].dateAndTime;
+      tdyDate = tdyDate.split(",", 1);
+      time = weatherData[keys[k]].timeZone;
+      var dates = new Date().toLocaleString("en-US", {
+        timeZone: time,
+        timeStyle: "medium",
+        hourCycle: "h24",
+      });
+
+      var ampm = parseInt(dates.slice(0, 2));
+      dates = dates.slice(0, 5);
+      var day = ampm >= 12 ? "Pm" : "Am";
+      var date = weatherData[keys[k]].dateAndTime;
+
+      max += 1;
+      if (max <= input_value && max > 3) {
+        console.log(max);
+        cities += `<div class="img-1">
+          <img class="main-img" src="Asset/${
+            weatherData[keys[k]].cityName
+          }.svg" />
+          <div class="img-text">${weatherData[keys[k]].cityName}</div>
+          <div class="img-icon">
+            <img src="Asset/rainyIcon.svg" />&nbsp;
+            <p>${weatherData[keys[k]].temperature}</p>
+          </div>
+          <div class="timeDate">
+          <div>${dates + " " + day}</div>
+          <div>${tdyDate}</div>
+        </div>
+          <div class="side-icon">
+            <div>
+              <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+              <p>${weatherData[keys[k]].humidity}</p>
+            </div>
+
+            <div>
+              <img src="Asset/precipitationIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+              <p>${weatherData[keys[k]].precipitation}</p>
+            </div>
+          </div>
+        </div>`;
+      } else if (max <= 3) {
+        console.log(max);
+        cities += `<div class="img-1">
+        <img class="main-img" src="Asset/${
+          weatherData[keys[k]].cityName
+        }.svg" />
+        <div class="img-text">${weatherData[keys[k]].cityName}</div>
+        <div class="img-icon">
+          <img src="Asset/rainyIcon.svg" />&nbsp;
+          <p>${weatherData[keys[k]].temperature}</p>
+        </div>
+        <div class="timeDate">
+        <div>${dates + " " + day}</div>
+          <div>${tdyDate}</div>
+      </div>
+        <div class="side-icon">
+          <div>
+            <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <p>${weatherData[keys[k]].humidity}</p>
+          </div>
+
+          <div>
+            <img src="Asset/precipitationIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <p>${weatherData[keys[k]].precipitation}</p>
+          </div>
+        </div>
+      </div>`;
+      }
+    }
+    document.querySelector(".mid-mid").innerHTML = cities;
+  }
+  if (input_value <= 4) {
+    document.getElementById("button1").style.visibility = "hidden";
+    document.getElementById("button2").style.visibility = "hidden";
+  } else {
+    document.getElementById("button1").style.visibility = "visible";
+    document.getElementById("button2").style.visibility = "visible";
+  }
+}
+//HORIZONTAL SCROLL BUTTON
+function leftScroll() {
+  const left = document.querySelector(".mid-mid");
+  left.scrollBy(290, 0);
+}
+function rightScroll() {
+  const right = document.querySelector(".mid-mid");
+  right.scrollBy(-290, 0);
+}

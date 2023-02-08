@@ -136,7 +136,7 @@
             <div class="img-text">Bangkok</div>
             <div class="img-icon">
               <img src="Asset/sunnyIcon.svg" />&nbsp;
-              <p>25 <sup>o</sup>C</p>
+              <p>${weatherData[keys[k]].temperature}</p>
             </div>
 
             <div class="side-icon">
@@ -163,15 +163,10 @@
               <img src="Asset/sunnyIcon.svg" />&nbsp;
               <p>25 <sup>o</sup>C</p>
             </div>
-
             <div class="side-icon">
               <div>
                 <img src="Asset//humidityIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>53%</p>
-              </div>
-              <div>
-                <img src="Asset/windyIcon.svg" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <p>5 Km/h</p>
+                <p>${weatherData[keys[k]].humidity}</p>
               </div>
               <div>
                 <img
@@ -367,9 +362,7 @@
         </div>
       </div>
     </div>
-    <<<<<<< HEAD
     <script type="text/javascript" src="data.json"></script>
     <script type="text/javascript" src="weatherData.js"></script>
-    ======= >>>>>>> webtips_develop
   </body>
 </html>
