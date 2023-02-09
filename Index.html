@@ -87,16 +87,21 @@
       <div class="mid-top">
         <div class="section"><p>Top cities around world</p></div>
         <div class="user-icon">
-          <img id="sun" onclick="sunny()" src="Asset/sunnyIcon.svg" />
-          <img id="snow" onclick="snow()" src="Asset/snowflakeIcon.svg" />
-          <img id="rain" onclick="rainy()" src="Asset/rainyIcon.svg" />
+          <img id="sun" onclick="sunny('sun')" src="Asset/sunnyIcon.svg" />
+          <img
+            id="snow"
+            onclick="sunny('snow')"
+            src="Asset/snowflakeIcon.svg"
+          />
+          <img id="rain" onclick="sunny('rain')" src="Asset/rainyIcon.svg" />
           <p>Display Top</p>
           <input
             id="input_box"
             type="number"
             min="3"
             max="10"
-            onchange="rainy()"
+            value="3"
+            onchange="sunny('displayTop')"
           />
         </div>
       </div>
@@ -347,7 +352,6 @@
               <p>53%</p>
             </div>
           </div>
-
           <div class="container">
             <div class="cont-1">
               <p>Asia</p>
