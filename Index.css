@@ -235,7 +235,7 @@ p {
   overflow-x: scroll;
   overflow-y: hidden;
   column-gap: 40px;
-  width: 82%;
+  width: 81%;
   height: 250px;
 }
 .mid-mid::-webkit-scrollbar {
