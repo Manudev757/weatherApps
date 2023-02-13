@@ -151,7 +151,7 @@ p {
 /* MIDDLE SECTION TOP */
 .middle {
   background-color: black;
-  height: 1000px;
+  height: 900px;
   border-radius: 35px 35px 0px 0px;
   width: 100%;
   text-align: center;
@@ -345,9 +345,10 @@ p {
 .bot-mid {
   margin-top: 50px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr 1fr; */
   grid-template-rows: 20% 20% 20% 20%;
   grid-gap: 25px;
+  grid-auto-flow: column;
 }
 .bot-mid div {
   background-color: #333;
