@@ -292,7 +292,7 @@ function rightScroll() {
   right.scrollBy(-290, 0);
 }
 let sortOrder = {
-  continent: true,
+  continent: false,
   temperature: false,
 };
 
