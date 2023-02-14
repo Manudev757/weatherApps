@@ -24,27 +24,24 @@ function setWeather() {
     option += `<option value=${keys[i]}></option>`;
   }
   document.querySelector("#browsers").innerHTML = option;
-  document.getElementById("sun").style.borderBottom = "2.5px solid blue";
-  document.getElementById("snow").style.borderBottom = "none";
-  document.getElementById("rain").style.borderBottom = "none";
-
-  var t, p, h, time;
-  for (var k = 0; k < keys.length; k++) {
-    t = parseInt(weatherData[keys[k]].temperature);
-    p = parseInt(weatherData[keys[k]].precipitation);
-    h = parseInt(weatherData[keys[k]].humidity);
-    if (t > 29 && h < 50 && p >= 50) {
-      tdyDate = weatherData[keys[k]].dateAndTime;
-      tdyDate = tdyDate.split(",", 1);
-      time = weatherData[keys[k]].timeZone;
-      var dates = new Date().toLocaleString("en-US", {
-        timeZone: time,
-        timeStyle: "medium",
-        hourCycle: "h24",
-      });
-      dates = dates.slice(0, 5);
-    }
-  }
+  // var t, p, h, time;
+  // for (var k = 0; k < keys.length; k++) {
+  //   t = parseInt(weatherData[keys[k]].temperature);
+  //   p = parseInt(weatherData[keys[k]].precipitation);
+  //   h = parseInt(weatherData[keys[k]].humidity);
+  //   if (t > 29 && h < 50 && p >= 50) {
+  //     console.log("fghj");
+  //     tdyDate = weatherData[keys[k]].dateAndTime;
+  //     tdyDate = tdyDate.split(",", 1);
+  //     time = weatherData[keys[k]].timeZone;
+  //     var dates = new Date().toLocaleString("en-US", {
+  //       timeZone: time,
+  //       timeStyle: "medium",
+  //       hourCycle: "h24",
+  //     });
+  //     dates = dates.slice(0, 5);
+  //   }0
+  // }
 }
 // SETTING THE CURRENT TIME,DATE, WEATHER AND
 //  WEATHER TIMELINE OF VARIOUS CITIES in top section
