@@ -1,11 +1,16 @@
-fetch("data.json")
+fetch("https://soliton.glitch.me/all-timezone-cities")
   .then((result) => result.json())
   .then((data) => {
+    let jsondata = {};
+    for (const city of data) {
+      jsondata[city.cityName.toLowerCase()] = city;
+    }
+    data = jsondata;
     let val = new Json_data(data);
     val.topSection();
     val.sortCities("sun");
     val.continent("continent");
-    setInterval(val.getTime.bind(val), 1000);
+    val.getTime();
   });
 
 //Constructor Function stores all the city data
@@ -56,16 +61,32 @@ class Json_data {
     this.getWeather(this.selectedCity);
   }
   //Setting the top section weather and TimeLine for nxt 5 hrs
-  getWeather() {
+  async getWeather() {
     var cityName = this.weatherData[this.selectedCity];
-    console.log(cityName);
     var nxt;
     var setTimeLine = ``;
+    var hour = 0;
     this.b = this.keys.includes(this.selectedCity);
     if (this.selectedCity === "") {
       document.getElementById("data").style.border = "2px solid red";
     }
     if (this.b) {
+      let data = await fetch(
+        `https://soliton.glitch.me?city=${
+          this.weatherData[this.selectedCity].cityName
+        }`
+      ).then((data) => data.json());
+      let nxtHrs = await fetch("https://soliton.glitch.me/hourly-forecast", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          hours: 6,
+        }),
+      });
+      nxtHrs = await nxtHrs.json();
       document.getElementById("temp").innerHTML = cityName.temperature;
       document.getElementById("humid").innerHTML = cityName.humidity;
       document.getElementById("precipitation").innerHTML =
@@ -76,8 +97,13 @@ class Json_data {
       document.querySelector(
         ".grid-child-1"
       ).innerHTML = `<img id="bg-img" src="Asset/${this.selectedCity}.svg" width="90px" />`;
-      var time = this.getTime();
-      var hour = time[0] + 1;
+      this.getTime();
+      var hour = parseInt(
+        this.weatherData[this.selectedCity].dateAndTime
+          .split(",")[1]
+          .split(":")[0]
+      );
+      hour += 1;
       for (var t = -1; t < 5; t++) {
         nxt = t == -1 ? "Now" : parseInt(hour++);
         setTimeLine += `
@@ -89,14 +115,14 @@ class Json_data {
     <img id="w_icon" src="Asset/${
       t == -1
         ? this.nxtFiveHrs(parseInt(cityName.temperature))
-        : this.nxtFiveHrs(parseInt(cityName.nextFiveHrs[t]))
+        : this.nxtFiveHrs(parseInt(nxtHrs.temperature[t]))
     }.svg" /><br />
     <p id="nxtTime1">
     ${
       t == 4
         ? 25
         : t != -1
-        ? parseInt(cityName.nextFiveHrs[t])
+        ? parseInt(nxtHrs.temperature[t])
         : parseInt(cityName.temperature)
     }
       </p>
@@ -154,8 +180,8 @@ class Json_data {
 
     var tdyDate = this.weatherData[cityName].dateAndTime;
     tdyDate = tdyDate.split(",", 1);
-    console.log(tdyDate);
-    document.getElementById("tdyDate").innerHTML = tdyDate;
+    document.getElementById("tdyDate").innerHTML =
+      this.weatherData[this.selectedCity].dateAndTime.split(",")[0];
     var dates = new Date().toLocaleString("en-US", {
       timeZone: this.weatherData[cityName].timeZone,
       timeStyle: "medium",
@@ -166,10 +192,14 @@ class Json_data {
     dates = dates.slice(0, 8);
     var day = ampm >= 12 ? "pmState" : "amState";
     var dayMode = ampm >= 12 ? "Pm" : "Am";
-    document.getElementById("time").innerHTML = `${dates}&nbsp;&nbsp;<img
+    document.getElementById("time").innerHTML = `${
+      this.weatherData[this.selectedCity].dateAndTime
+        .split(",")[1]
+        .trim()
+        .split(" ")[0]
+    }&nbsp;&nbsp;<img
           src="Asset/${day}.svg"
           />`;
-    return [ampm, dates, day, dayMode];
   }
   //Getting input from Input box - top section
   inputCity() {
@@ -242,23 +272,11 @@ class Json_data {
     document.getElementById("rain").style.borderBottom = "none";
     var input_box = document.getElementById("input_box").value;
     var cities = ``;
-    var time;
     if (type != "displayTop") {
       this.val = type;
     }
     this.sort(this.val);
     for (var k = 0; k < this.sortedArray.length; k++) {
-      var tdyDate = this.sortedArray[k].dateAndTime;
-      tdyDate = tdyDate.split(",", 1);
-      time = this.sortedArray[k].timeZone;
-      var dates = new Date().toLocaleString("en-US", {
-        timeZone: time,
-        timeStyle: "medium",
-        hourCycle: "h24",
-      });
-      var ampm = parseInt(dates.slice(0, 2));
-      dates = dates.slice(0, 5);
-      var day = ampm >= 12 ? "Pm" : "Am";
       if (input_box > k) {
         cities += `<div class="img-1">
             <img class="main-img" src="Asset/${
@@ -270,8 +288,8 @@ class Json_data {
               <p>${this.sortedArray[k].temperature}</p>
             </div>
             <div class="timeDate">
-            <div>${dates + " " + day}</div>
-            <div>${tdyDate}</div>
+            <div>${this.sortedArray[k].dateAndTime.split(",")[1]}</div>
+            <div>${this.sortedArray[k].dateAndTime.split(",")[0]}</div>
           </div>
             <div class="side-icon">
               <div>
@@ -322,14 +340,6 @@ class Json_data {
     });
     var data = ``;
     for (var i = 0; i < 12; i++) {
-      var dates = new Date().toLocaleString("en-US", {
-        timeZone: this.weatherArray[i].timeZone,
-        timeStyle: "medium",
-        hourCycle: "h24",
-      });
-      var ampm = parseInt(dates.slice(0, 2));
-      dates = dates.slice(0, 9);
-      var day = ampm >= 12 ? "Pm" : "Am";
       data += `
               <div class="container">
               <div class="cont-1">
@@ -337,7 +347,12 @@ class Json_data {
                 <p>${this.weatherArray[i].temperature}</p>
               </div>
               <div class="cont-2">
-                <p>${this.weatherArray[i].cityName}, ${dates} ${day}</p>
+                <p>${this.weatherArray[i].cityName}, ${this.weatherArray[
+        i
+      ].dateAndTime
+        .split(",")[1]
+        .trim()
+        .split(" ")}</p>
                 <img src="Asset/humidityIcon.svg" />
                 <p>${this.weatherArray[i].humidity}</p>
               </div>
