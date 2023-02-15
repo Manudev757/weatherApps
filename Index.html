@@ -23,13 +23,7 @@
       <div class="grid grid-child-2">
         <!-- <select id="dropdown" onchange="weather()">
         </select> -->
-        <input
-          list="browsers"
-          name="browser"
-          id="data"
-          value="nome"
-          onchange="weather()"
-        />
+        <input list="browsers" name="browser" id="data" value="nome" />
         <datalist id="browsers">
           <option></option>
         </datalist>
@@ -89,22 +83,11 @@
       <div class="mid-top">
         <div class="section"><p>Top cities around world</p></div>
         <div class="user-icon">
-          <img id="sun" onclick="sunny('sun')" src="Asset/sunnyIcon.svg" />
-          <img
-            id="snow"
-            onclick="sunny('snow')"
-            src="Asset/snowflakeIcon.svg"
-          />
-          <img id="rain" onclick="sunny('rain')" src="Asset/rainyIcon.svg" />
+          <img id="sun" src="Asset/sunnyIcon.svg" />
+          <img id="snow" src="Asset/snowflakeIcon.svg" />
+          <img id="rain" src="Asset/rainyIcon.svg" />
           <p>Display Top</p>
-          <input
-            id="input_box"
-            type="number"
-            min="3"
-            max="10"
-            value="3"
-            onchange="sunny('displayTop')"
-          />
+          <input id="input_box" type="number" min="3" max="10" value="3" />
         </div>
       </div>
 
@@ -152,15 +135,15 @@
       <div class="bottom">
         <div class="bot-top">
           <h2>Cities across continents at a glance</h2>
-          <div onclick="continent('continent')">
+          <div id="sortContinent">
             Continent Name&nbsp;&nbsp;<img
-              id="sortContinent"
+              id="sortContinentImg"
               src="Asset/arrowDown.svg"
             />
           </div>
-          <div onclick="continent('temperature')">
+          <div id="sortTemperature">
             Temperature&nbsp;&nbsp;<img
-              id="sortTemperature"
+              id="sortTemperatureImg"
               src="Asset/arrowUp.svg"
             />
           </div>
@@ -170,6 +153,7 @@
       </div>
     </div>
     <script type="text/javascript" src="data.json"></script>
+    <!-- <script type="text/javascript" src="weatherData.js"></script> -->
     <script type="text/javascript" src="weatherData.js"></script>
   </body>
 </html>
