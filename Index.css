@@ -276,7 +276,7 @@ p {
   top: 0;
   font-size: 20px;
   color: aliceblue;
-  padding: 10px;
+  margin-top: 12px;
 }
 .img-text span {
   color: aliceblue;
@@ -302,8 +302,14 @@ p {
   position: absolute;
   top: 20%;
 }
-.timeDate div {
+.timeDate > div:nth-child(1) {
   color: white;
+  margin-left: -20px;
+  font-size: 15px;
+}
+.timeDate > div:nth-child(2) {
+  color: white;
+  font-size: 15px;
 }
 .side-icon img {
   width: 35%;
@@ -415,6 +421,9 @@ p {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
   }
+  .flex-wrapper {
+    margin-left: -14px;
+  }
   .middle {
     margin-top: 80px;
     width: 100%;
@@ -473,7 +482,7 @@ p {
   }
 }
 
-@media only screen and (min-width: 685px) and (max-width: 1015px) {
+@media only screen and (min-width: 685px) and (max-width: 1050px) {
   .grid-parent {
     grid-template-rows: 100px 100px 200px;
     grid-template-columns: auto;
@@ -486,7 +495,7 @@ p {
     justify-content: flex-start;
   }
   .flex-wrapper {
-    margin-left: -40px;
+    margin-left: -81px;
   }
   .weather-icon {
     margin-left: 12px;
@@ -546,7 +555,7 @@ p {
     margin-left: 0;
   }
 }
-@media only screen and (min-width: 1016px) and (max-width: 1300px) {
+@media only screen and (min-width: 1050px) and (max-width: 1300px) {
   .grid-child-5 {
     margin-left: -40px;
   }
@@ -562,11 +571,17 @@ p {
   }
   .flex-wrapper {
     justify-content: flex-start;
-    margin-left: 25px;
+    margin-left: 5px;
   }
   .scroll > #button1 {
     left: 11px;
     top: 50%;
+  }
+  .grid-child-3 > p,
+  .grid-child-4 > p,
+  .grid-child-7 > p,
+  .grid-child-8 > p {
+    font-size: 16px;
   }
   .scroll > #button2 {
     right: 35px;

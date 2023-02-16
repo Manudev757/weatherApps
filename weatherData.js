@@ -173,17 +173,32 @@ class Json_data {
     let city = this.weatherData[this.selectedCity];
     var cityName = city.cityName;
     cityName = cityName.toLowerCase();
-
+    const monthNames = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+    const d = new Date();
+    const date =
+      d.getDate() + "-" + monthNames[d.getMonth()] + "-" + d.getFullYear();
     var tdyDate = this.weatherData[cityName].dateAndTime;
     tdyDate = tdyDate.split(",", 1);
-    document.getElementById("tdyDate").innerHTML =
-      this.weatherData[this.selectedCity].dateAndTime.split(",")[0];
+    document.getElementById("tdyDate").innerHTML = date;
+    // this.weatherData[this.selectedCity].dateAndTime.split(",")[0];
     var dates = new Date().toLocaleString("en-US", {
       timeZone: this.weatherData[this.selectedCity].timeZone,
       timeStyle: "medium",
       hourCycle: "h24",
     });
-    console.log(dates);
     //finding weather the time is AM or PM
     var ampm = parseInt(dates.slice(0, 2));
     dates = dates.slice(0, 8);
@@ -263,24 +278,45 @@ class Json_data {
     document.getElementById("snow").style.borderBottom = "none";
     document.getElementById("rain").style.borderBottom = "none";
     var input_box = document.getElementById("input_box").value;
-    var cities = ``;
+    if (input_box < 3) {
+      input_box.value = 3;
+      return;
+    }
+    var cities = ``,
+      ampm;
     //var tdyDate = this.weatherData[cityName].dateAndTime;
 
     if (type != "displayTop") {
       this.val = type;
     }
     this.sort(this.val);
-
-    console.log(dates);
+    const monthNames = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+    const d = new Date();
+    const date =
+      d.getDate() + "-" + monthNames[d.getMonth()] + "-" + d.getFullYear();
     for (var k = 0; k < this.sortedArray.length; k++) {
-      console.log(this.sortedArray);
       var dates = new Date().toLocaleString("en-US", {
         timeZone: this.sortedArray[k].timeZone,
         timeStyle: "medium",
         hourCycle: "h24",
       });
       //finding weather the time is AM or PM
-      dates = dates.slice(0, 8);
+      dates = dates.slice(0, 5);
+      ampm = dates.slice(0, 2);
+      var day = ampm >= 12 ? "PM" : "AM";
       if (input_box > k) {
         cities += `<div class="img-1">
             <img class="main-img" src="Asset/${
@@ -292,8 +328,8 @@ class Json_data {
               <p>${this.sortedArray[k].temperature}</p>
             </div>
             <div class="timeDate">
-            <div>${dates}</div>
-            <div>${this.sortedArray[k].dateAndTime.split(",")[0]}</div>
+            <div>${dates + " " + day}</div>
+            <div>${date}</div>
           </div>
             <div class="side-icon">
               <div>
@@ -342,13 +378,17 @@ class Json_data {
         Cont_temp * (parseInt(a.temperature) - parseInt(b.temperature))
       );
     });
-    var data = ``;
+    var data = ``,
+      ampm;
     for (var i = 0; i < 12; i++) {
       var dates = new Date().toLocaleString("en-US", {
         timeZone: this.weatherArray[i].timeZone,
         timeStyle: "medium",
         hourCycle: "h24",
       });
+      dates = dates.slice(0, 5);
+      ampm = dates.slice(0, 2);
+      var day = ampm >= 12 ? "PM" : "AM";
       data += `
               <div class="container">
               <div class="cont-1">
@@ -356,7 +396,7 @@ class Json_data {
                 <p>${this.weatherArray[i].temperature}</p>
               </div>
               <div class="cont-2">
-                <p>${this.weatherArray[i].cityName}, ${dates}</p>
+                <p>${this.weatherArray[i].cityName}, ${dates + " " + day}</p>
                 <img src="Asset/humidityIcon.svg" />
                 <p>${this.weatherArray[i].humidity}</p>
               </div>
