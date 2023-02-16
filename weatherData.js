@@ -6,11 +6,13 @@ fetch("https://soliton.glitch.me/all-timezone-cities")
       jsondata[city.cityName.toLowerCase()] = city;
     }
     data = jsondata;
+    console.log(data);
     let val = new Json_data(data);
     val.topSection();
     val.sortCities("sun");
     val.continent("continent");
     val.getTime();
+    setInterval(val.getTime.bind(val), 1000);
   });
 
 //Constructor Function stores all the city data
@@ -21,7 +23,7 @@ class Json_data {
     this.b = true;
     this.val = "sun";
     (this.continents = false),
-      (this.temperatures = false),
+      (this.temperatures = true),
       (this.sortedArray = []);
     this.keys = Object.keys(data);
     this.weatherArray = [];
@@ -65,7 +67,6 @@ class Json_data {
     var cityName = this.weatherData[this.selectedCity];
     var nxt;
     var setTimeLine = ``;
-    var hour = 0;
     this.b = this.keys.includes(this.selectedCity);
     if (this.selectedCity === "") {
       document.getElementById("data").style.border = "2px solid red";
@@ -97,15 +98,10 @@ class Json_data {
       document.querySelector(
         ".grid-child-1"
       ).innerHTML = `<img id="bg-img" src="Asset/${this.selectedCity}.svg" width="90px" />`;
-      this.getTime();
-      var hour = parseInt(
-        this.weatherData[this.selectedCity].dateAndTime
-          .split(",")[1]
-          .split(":")[0]
-      );
-      hour += 1;
+      var n = parseInt(this.getTime());
+      n += 1;
       for (var t = -1; t < 5; t++) {
-        nxt = t == -1 ? "Now" : parseInt(hour++);
+        nxt = t == -1 ? "Now" : parseInt(n++);
         setTimeLine += `
     <div class="weather-icon">
     <p id="time11">${nxt}</p>
@@ -120,10 +116,10 @@ class Json_data {
     <p id="nxtTime1">
     ${
       t == 4
-        ? 25
+        ? nxtHrs.temperature[4]
         : t != -1
-        ? parseInt(nxtHrs.temperature[t])
-        : parseInt(cityName.temperature)
+        ? nxtHrs.temperature[t]
+        : cityName.temperature
     }
       </p>
     <br />
@@ -183,23 +179,19 @@ class Json_data {
     document.getElementById("tdyDate").innerHTML =
       this.weatherData[this.selectedCity].dateAndTime.split(",")[0];
     var dates = new Date().toLocaleString("en-US", {
-      timeZone: this.weatherData[cityName].timeZone,
+      timeZone: this.weatherData[this.selectedCity].timeZone,
       timeStyle: "medium",
       hourCycle: "h24",
     });
+    console.log(dates);
     //finding weather the time is AM or PM
     var ampm = parseInt(dates.slice(0, 2));
     dates = dates.slice(0, 8);
     var day = ampm >= 12 ? "pmState" : "amState";
-    var dayMode = ampm >= 12 ? "Pm" : "Am";
-    document.getElementById("time").innerHTML = `${
-      this.weatherData[this.selectedCity].dateAndTime
-        .split(",")[1]
-        .trim()
-        .split(" ")[0]
-    }&nbsp;&nbsp;<img
+    document.getElementById("time").innerHTML = `${dates}&nbsp;&nbsp;<img
           src="Asset/${day}.svg"
           />`;
+    return dates.split(":")[0];
   }
   //Getting input from Input box - top section
   inputCity() {
@@ -272,11 +264,23 @@ class Json_data {
     document.getElementById("rain").style.borderBottom = "none";
     var input_box = document.getElementById("input_box").value;
     var cities = ``;
+    //var tdyDate = this.weatherData[cityName].dateAndTime;
+
     if (type != "displayTop") {
       this.val = type;
     }
     this.sort(this.val);
+
+    console.log(dates);
     for (var k = 0; k < this.sortedArray.length; k++) {
+      console.log(this.sortedArray);
+      var dates = new Date().toLocaleString("en-US", {
+        timeZone: this.sortedArray[k].timeZone,
+        timeStyle: "medium",
+        hourCycle: "h24",
+      });
+      //finding weather the time is AM or PM
+      dates = dates.slice(0, 8);
       if (input_box > k) {
         cities += `<div class="img-1">
             <img class="main-img" src="Asset/${
@@ -288,7 +292,7 @@ class Json_data {
               <p>${this.sortedArray[k].temperature}</p>
             </div>
             <div class="timeDate">
-            <div>${this.sortedArray[k].dateAndTime.split(",")[1]}</div>
+            <div>${dates}</div>
             <div>${this.sortedArray[k].dateAndTime.split(",")[0]}</div>
           </div>
             <div class="side-icon">
@@ -317,8 +321,8 @@ class Json_data {
   }
   //Sorting cities in Bottom section
   continent(sortKey) {
-    const sortContinent = document.querySelector("#sortContinent");
-    const sortTemperature = document.querySelector("#sortTemperature");
+    const sortContinent = document.querySelector("#sortContinentImg");
+    const sortTemperature = document.querySelector("#sortTemperatureImg");
     if (sortKey == "continent") {
       this.continents = !this.continents;
       sortContinent.src = `./Asset/arrow${this.continents ? "Up" : "Down"}.svg`;
@@ -340,6 +344,11 @@ class Json_data {
     });
     var data = ``;
     for (var i = 0; i < 12; i++) {
+      var dates = new Date().toLocaleString("en-US", {
+        timeZone: this.weatherArray[i].timeZone,
+        timeStyle: "medium",
+        hourCycle: "h24",
+      });
       data += `
               <div class="container">
               <div class="cont-1">
@@ -347,12 +356,7 @@ class Json_data {
                 <p>${this.weatherArray[i].temperature}</p>
               </div>
               <div class="cont-2">
-                <p>${this.weatherArray[i].cityName}, ${this.weatherArray[
-        i
-      ].dateAndTime
-        .split(",")[1]
-        .trim()
-        .split(" ")}</p>
+                <p>${this.weatherArray[i].cityName}, ${dates}</p>
                 <img src="Asset/humidityIcon.svg" />
                 <p>${this.weatherArray[i].humidity}</p>
               </div>
