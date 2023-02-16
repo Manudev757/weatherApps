@@ -293,7 +293,7 @@ function rightScroll() {
 }
 let sortOrder = {
   continent: false,
-  temperature: false,
+  temperature: true,
 };
 
 let weatherArray = [];
