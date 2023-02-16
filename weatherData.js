@@ -101,6 +101,7 @@ class Json_data {
       var n = parseInt(this.getTime());
       n += 1;
       for (var t = -1; t < 5; t++) {
+        if (n > 23) n = 0;
         nxt = t == -1 ? "Now" : parseInt(n++);
         setTimeLine += `
     <div class="weather-icon">
