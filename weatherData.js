@@ -14,9 +14,16 @@ fetch("https://soliton.glitch.me/all-timezone-cities")
     val.getTime();
     setInterval(val.getTime.bind(val), 1000);
   });
-
-//Constructor Function stores all the city data
+/**
+ * @class Json_data
+ * @description This is a Parent Class contains Constructor function
+ */
 class Json_data {
+  /**
+   * Creates an instance of Json_data.
+   * @param {Object} data
+   * @description This constructor function initializes the variables that are used widely in other functions, it also creates an array with json object
+   */
   constructor(data) {
     this.weatherData = data;
     this.selectedCity = "nome";
@@ -31,6 +38,10 @@ class Json_data {
       this.weatherArray.push(this.weatherData[citykey]);
     }
   }
+  /**
+   *@description displays all the city name on the datalist,contains all the Event Listeners on this project and also this function calls another function getWeather()
+   * @memberof Json_data
+   */
   topSection() {
     //setting the dropdown datalist
     let option = ``;
@@ -60,9 +71,13 @@ class Json_data {
     document
       .getElementById("sortContinent")
       .addEventListener("click", this.continent.bind(this, "continent"));
-    this.getWeather(this.selectedCity);
+    this.getWeather();
   }
   //Setting the top section weather and TimeLine for nxt 5 hrs
+  /**
+   *@description This function is a Asynchronous and send  multiple API request to the server to retrieve the next 5 hrs Weather of a city, It also sets the Current time and some weather data of the user selected city in the top section and it also Validates the Input box and the Top Section.
+   * @memberof Json_data
+   */
   async getWeather() {
     var cityName = this.weatherData[this.selectedCity];
     var nxt;
@@ -161,6 +176,12 @@ class Json_data {
     }
   }
   //set appropriate weather icon for the nxt 5 hrs
+  /**
+   * @param {temperature of a city for nxt 5 Hours} temp
+   * @return {An Icon which matches the weather}
+   * @description This function Returns a suitable weather icon for the specified temperature of a city
+   * @memberof Json_data
+   */
   nxtFiveHrs(temp) {
     let icon;
     if (temp > 29) icon = "sunnyIcon";
@@ -170,6 +191,11 @@ class Json_data {
     return icon;
   }
   //Calcualting the current Time and date for the choosen city
+  /**
+   * @return {current hour of the user selected city}
+   * @description This Function Provides with the current time and Date for a selected city in the whole project
+   * @memberof Json_data
+   */
   getTime() {
     let city = this.weatherData[this.selectedCity];
     var cityName = city.cityName;
@@ -194,7 +220,6 @@ class Json_data {
     var tdyDate = this.weatherData[cityName].dateAndTime;
     tdyDate = tdyDate.split(",", 1);
     document.getElementById("tdyDate").innerHTML = date;
-    // this.weatherData[this.selectedCity].dateAndTime.split(",")[0];
     var dates = new Date().toLocaleString("en-US", {
       timeZone: this.weatherData[this.selectedCity].timeZone,
       timeStyle: "medium",
@@ -209,12 +234,20 @@ class Json_data {
           />`;
     return dates.split(":")[0];
   }
-  //Getting input from Input box - top section
+  /**
+   *@description this Function gets the value[city name] from the user and also calls getWeather function
+   * @memberof Json_data
+   */
   inputCity() {
     this.selectedCity = document.getElementById("data").value.toLowerCase();
     this.getWeather();
   }
   //This function provides a sorted list of cities based on user preference
+  /**
+   * @param {Gets a string as an input which tells wheather user clicked sun / rain / snow icon in middle section} data
+   * @description This Function sorts the city object by, wheather it is sunny/rainy/snowy and pushes it to a new array
+   * @memberof Json_data
+   */
   sort(data) {
     var i = 0;
     this.sortedArray = [];
@@ -274,6 +307,12 @@ class Json_data {
     }
   }
   //Displaying the sorted cities and Updating the Display spinner box
+  /**
+   * @param {Type contains the user clicked icon, ex sun / rain / snow} type
+   * @return {if the value of input box is < 3 then it will return from the function}
+   * @description This function displays the user selected city in mid-section according to the input value given by the user in display top box
+   * @memberof Json_data
+   */
   sortCities(type) {
     document.getElementById("sun").style.borderBottom = "2.5px solid blue";
     document.getElementById("snow").style.borderBottom = "none";
@@ -285,8 +324,6 @@ class Json_data {
     }
     var cities = ``,
       ampm;
-    //var tdyDate = this.weatherData[cityName].dateAndTime;
-
     if (type != "displayTop") {
       this.val = type;
     }
@@ -353,10 +390,14 @@ class Json_data {
         }
       }
     }
-
     document.querySelector(".mid-mid").innerHTML = cities;
   }
   //Sorting cities in Bottom section
+  /**
+   * @param {sortKey conatins the value of button clicked by user in bottom section, ex: continent / temperature} sortKey
+   * @description This Function sorts the bottom section cities by Continent wise or Temperature wise and displays it accordingly
+   * @memberof Json_data
+   */
   continent(sortKey) {
     const sortContinent = document.querySelector("#sortContinentImg");
     const sortTemperature = document.querySelector("#sortTemperatureImg");
@@ -407,11 +448,16 @@ class Json_data {
     document.querySelector(".bot-mid").innerHTML = data;
   }
 }
-//Function for scroll Buttons
+/**
+ *@description This Function makes a scroll left for about 150px
+ */
 function leftScroll() {
   const left = document.querySelector(".mid-mid");
   left.scrollBy(150, 0);
 }
+/**
+ *@description This Function makes a scroll Right for about -150px
+ */
 function rightScroll() {
   const right = document.querySelector(".mid-mid");
   right.scrollBy(-150, 0);
