@@ -1,5 +1,6 @@
 const { fork } = require("child_process");
 
+//creating child process for getting all Weather data
 const getWeather = (req, res) => {
   const child_getweather = fork(__dirname + "/weather.js");
   child_getweather.on("message", (message) => {
@@ -9,6 +10,7 @@ const getWeather = (req, res) => {
   });
 };
 
+//creating child process for getting Weather data of a city
 const getCityData = (req, res) => {
   const child_getweather = fork(__dirname + "/getCity.js");
   var city = req.params.id;
@@ -20,6 +22,7 @@ const getCityData = (req, res) => {
   });
 };
 
+//creating child process for getting next 5 hrs of weather
 const getNxtFivHrs = (req, res) => {
   const child_getweather = fork(__dirname + "/getNxtHrs.js");
   let cityData = req.body;
