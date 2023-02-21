@@ -12,10 +12,17 @@ fetch("http://localhost:2020/allTimeZone")
     let val = new Json_data(data);
     val.topSection();
     val.sortCities("sun");
+    val.getWeather();
     val.continent("continent");
     val.getTime();
     setInterval(val.getTime.bind(val), 1000);
+    // setInterval(val.getWeather.bind(val), 60000);
   });
+
+window.setTimeout(function () {
+  window.location.reload();
+}, 60000);
+
 /**
  * @class Json_data
  * @description This is a Parent Class contains Constructor function
@@ -83,7 +90,6 @@ class Json_data {
   async getWeather() {
     var cityName = this.weatherData[this.selectedCity];
     var nxt;
-    var cities = this.weatherData;
     var setTimeLine = ``;
     this.b = this.keys.includes(this.selectedCity);
     if (this.selectedCity === "") {
@@ -109,7 +115,6 @@ class Json_data {
         .then((val) => val.replace(/�/g, "°"))
         .then((result) => JSON.parse(result));
       nxtHrs = await nxtHrs;
-      console.log(nxtHrs);
       document.getElementById("temp").innerHTML = cityName.temperature;
       document.getElementById("humid").innerHTML = cityName.humidity;
       document.getElementById("precipitation").innerHTML =
@@ -205,41 +210,44 @@ class Json_data {
    */
   getTime() {
     let city = this.weatherData[this.selectedCity];
-    var cityName = city.cityName;
-    cityName = cityName.toLowerCase();
-    const monthNames = [
-      "JAN",
-      "FEB",
-      "MAR",
-      "APR",
-      "MAY",
-      "JUN",
-      "JUL",
-      "AUG",
-      "SEP",
-      "OCT",
-      "NOV",
-      "DEC",
-    ];
-    const d = new Date();
-    const date =
-      d.getDate() + "-" + monthNames[d.getMonth()] + "-" + d.getFullYear();
-    var tdyDate = this.weatherData[cityName].dateAndTime;
-    tdyDate = tdyDate.split(",", 1);
-    document.getElementById("tdyDate").innerHTML = date;
-    var dates = new Date().toLocaleString("en-US", {
-      timeZone: this.weatherData[this.selectedCity].timeZone,
-      timeStyle: "medium",
-      hourCycle: "h24",
-    });
-    //finding weather the time is AM or PM
-    var ampm = parseInt(dates.slice(0, 2));
-    dates = dates.slice(0, 8);
-    var day = ampm >= 12 ? "pmState" : "amState";
-    document.getElementById("time").innerHTML = `${dates}&nbsp;&nbsp;<img
-          src="Asset/${day}.svg"
-          />`;
-    return dates.split(":")[0];
+    this.b = this.keys.includes(this.selectedCity);
+    if (this.b) {
+      var cityName = city.cityName;
+      cityName = cityName.toLowerCase();
+      const monthNames = [
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN",
+        "JUL",
+        "AUG",
+        "SEP",
+        "OCT",
+        "NOV",
+        "DEC",
+      ];
+      const d = new Date();
+      const date =
+        d.getDate() + "-" + monthNames[d.getMonth()] + "-" + d.getFullYear();
+      var tdyDate = this.weatherData[cityName].dateAndTime;
+      tdyDate = tdyDate.split(",", 1);
+      document.getElementById("tdyDate").innerHTML = date;
+      var dates = new Date().toLocaleString("en-US", {
+        timeZone: this.weatherData[this.selectedCity].timeZone,
+        timeStyle: "medium",
+        hourCycle: "h23",
+      });
+      //finding weather the time is AM or PM
+      var ampm = parseInt(dates.slice(0, 2));
+      dates = dates.slice(0, 8);
+      var day = ampm >= 12 ? "pmState" : "amState";
+      document.getElementById("time").innerHTML = `${dates}&nbsp;&nbsp;<img
+            src="Asset/${day}.svg"
+            />`;
+      return dates.split(":")[0];
+    }
   }
   /**
    *@description this Function gets the value[city name] from the user and also calls getWeather function
@@ -247,6 +255,7 @@ class Json_data {
    */
   inputCity() {
     this.selectedCity = document.getElementById("data").value.toLowerCase();
+
     this.getWeather();
   }
   //This function provides a sorted list of cities based on user preference
@@ -356,7 +365,7 @@ class Json_data {
       var dates = new Date().toLocaleString("en-US", {
         timeZone: this.sortedArray[k].timeZone,
         timeStyle: "medium",
-        hourCycle: "h24",
+        hourCycle: "h23",
       });
       //finding weather the time is AM or PM
       dates = dates.slice(0, 5);
@@ -433,7 +442,7 @@ class Json_data {
       var dates = new Date().toLocaleString("en-US", {
         timeZone: this.weatherArray[i].timeZone,
         timeStyle: "medium",
-        hourCycle: "h24",
+        hourCycle: "h23",
       });
       dates = dates.slice(0, 5);
       ampm = dates.slice(0, 2);
