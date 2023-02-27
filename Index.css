@@ -151,7 +151,7 @@ p {
 /* MIDDLE SECTION TOP */
 .middle {
   background-color: black;
-  height: 1000px;
+  height: 900px;
   border-radius: 35px 35px 0px 0px;
   width: 100%;
   text-align: center;
@@ -217,7 +217,7 @@ p {
 }
 .scroll > #button2 {
   position: absolute;
-  right: 1%;
+  right: 3%;
   top: 50%;
   padding: 20px;
   visibility: hidden;
@@ -230,12 +230,12 @@ p {
 }
 .mid-mid {
   display: flex;
-  margin-left: 10px;
+  margin-left: 16px;
   grid-auto-flow: column;
   overflow-x: scroll;
   overflow-y: hidden;
   column-gap: 40px;
-  width: 82%;
+  width: 81%;
   height: 250px;
 }
 .mid-mid::-webkit-scrollbar {
@@ -345,9 +345,10 @@ p {
 .bot-mid {
   margin-top: 50px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr 1fr; */
   grid-template-rows: 20% 20% 20% 20%;
   grid-gap: 25px;
+  grid-auto-flow: column;
 }
 .bot-mid div {
   background-color: #333;
@@ -409,10 +410,10 @@ p {
   }
   .middle {
     margin-top: 80px;
-    min-width: 100%;
+    width: 100%;
   }
   .scroll > #button1 {
-    left: 0px;
+    left: 11px;
     padding: 15px;
     top: 50%;
   }
@@ -420,12 +421,12 @@ p {
     overflow: hidden;
   }
   .scroll > #button2 {
-    right: -3px;
+    right: 9px;
     padding: 15px;
     top: 50%;
   }
   .img-1 {
-    min-width: 211px;
+    min-width: 197px;
   }
   .weather-icon {
     width: 60px;
@@ -444,9 +445,9 @@ p {
     grid-template-columns: 2fr 1fr 1fr;
   }
   .bot-mid {
-    grid-template-columns: 2fr 2fr;
-    max-height: 400px;
-    margin: 8px;
+    grid-template-rows: repeat(6, 1fr);
+    max-height: 522px;
+    margin: 29px;
   }
   .bot-top h2 {
     font-size: 22px;
@@ -485,7 +486,7 @@ p {
   }
   .mid-mid {
     margin: 0;
-    margin-left: 81px;
+    margin-left: -37px;
     justify-content: space-between;
   }
   .scroll > #button1 {
@@ -494,12 +495,12 @@ p {
     top: 50%;
   }
   .scroll > #button2 {
-    right: 3%;
+    right: 5%;
     padding: 15px;
     top: 50%;
   }
   .img-1 {
-    min-width: 208px;
+    min-width: 212px;
   }
   .section p {
     text-align: start;
@@ -557,11 +558,11 @@ p {
     margin-left: 25px;
   }
   .scroll > #button1 {
-    left: 0px;
+    left: 11px;
     top: 50%;
   }
   .scroll > #button2 {
-    right: 0px;
+    right: 35px;
     top: 50%;
   }
   .middle {

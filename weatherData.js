@@ -10,6 +10,10 @@ fetch("data.json")
     weather();
     //function call from 2-nd Task not included for task-1
     sunny("sun");
+    for (const citykey of Object.keys(weatherData)) {
+      weatherArray.push(weatherData[citykey]);
+    }
+    continent("continent");
   });
 // SETTING THE DATALIST BOX AND
 // THE CITY IMAGES IN MID SECTION
@@ -156,6 +160,8 @@ function weather() {
 }
 //To set The time Live Running on our screen
 setInterval(weather, 1000);
+// setInterval(continent, 1000);
+// setInterval(continents_data, 1000);
 // ******** SUNNY function - 2nd Task function*******
 var sortedArray = [];
 var sendWeather;
@@ -177,6 +183,7 @@ function sort_fun(val) {
         i++;
       }
     }
+    console.log(sortedArray);
     sortedArray.sort((a, b) => {
       return parseInt(a.temperature) - parseInt(b.temperature);
     });
@@ -283,4 +290,61 @@ function leftScroll() {
 function rightScroll() {
   const right = document.querySelector(".mid-mid");
   right.scrollBy(-290, 0);
+}
+let sortOrder = {
+  continent: false,
+  temperature: true,
+};
+
+let weatherArray = [];
+
+function continent(sortKey) {
+  const sortContinent = document.querySelector("#sortContinent");
+  const sortTemperature = document.querySelector("#sortTemperature");
+  if (sortKey == "continent") {
+    sortOrder.continent = !sortOrder.continent;
+    sortContinent.src = `./Asset/arrow${
+      sortOrder.continent ? "Up" : "Down"
+    }.svg`;
+  } else if (sortKey == "temperature") {
+    sortOrder.temperature = !sortOrder.temperature;
+    sortTemperature.src = `./Asset/arrow${
+      sortOrder.temperature ? "Up" : "Down"
+    }.svg`;
+  }
+  let Cont_dir = sortOrder.continent ? 1 : -1;
+  let Cont_temp = sortOrder.temperature ? 1 : -1;
+  weatherArray.sort((a, b) => {
+    const cont_a = a.timeZone.split("/")[0];
+    const cont_b = b.timeZone.split("/")[0];
+    return (
+      Cont_dir * cont_a.localeCompare(cont_b) ||
+      Cont_temp * (parseInt(a.temperature) - parseInt(b.temperature))
+    );
+  });
+  var data = ``;
+  for (var i = 0; i < 12; i++) {
+    var dates = new Date().toLocaleString("en-US", {
+      timeZone: weatherArray[i].timeZone,
+      timeStyle: "medium",
+      hourCycle: "h24",
+    });
+    var ampm = parseInt(dates.slice(0, 2));
+    dates = dates.slice(0, 9);
+    var day = ampm >= 12 ? "Pm" : "Am";
+    data += `
+            <div class="container">
+            <div class="cont-1">
+              <p>${weatherArray[i].timeZone.split("/")[0]}</p>
+              <p>${weatherArray[i].temperature}</p>
+            </div>
+            <div class="cont-2">
+              <p>${weatherArray[i].cityName}, ${dates} ${day}</p>
+              <img src="Asset/humidityIcon.svg" />
+              <p>${weatherArray[i].humidity}</p>
+            </div>
+          </div>
+            `;
+  }
+  document.querySelector(".bot-mid").innerHTML = data;
 }

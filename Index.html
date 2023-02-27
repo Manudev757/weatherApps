@@ -216,154 +216,21 @@
       <div class="bottom">
         <div class="bot-top">
           <h2>Cities across continents at a glance</h2>
-          <div>Continent Name&nbsp;&nbsp;<img src="Asset/arrowDown.svg" /></div>
-          <div>Temperature&nbsp;&nbsp;<img src="Asset/arrowUp.svg" /></div>
-        </div>
-
-        <div class="bot-mid">
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
+          <div onclick="continent('continent')">
+            Continent Name&nbsp;&nbsp;<img
+              id="sortContinent"
+              src="Asset/arrowDown.svg"
+            />
           </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
-          </div>
-          <div class="container">
-            <div class="cont-1">
-              <p>Asia</p>
-              <p>38<sup>o</sup>C</p>
-            </div>
-            <div class="cont-2">
-              <p>Bangkok, 10:10 AM</p>
-              <img src="Asset/humidityIcon.svg" />
-              <p>53%</p>
-            </div>
+          <div onclick="continent('temperature')">
+            Temperature&nbsp;&nbsp;<img
+              id="sortTemperature"
+              src="Asset/arrowUp.svg"
+            />
           </div>
         </div>
+
+        <div class="bot-mid"></div>
       </div>
     </div>
     <script type="text/javascript" src="data.json"></script>
