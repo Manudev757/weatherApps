@@ -1,15 +1,29 @@
-fetch("data.json")
+fetch("https://soliton.glitch.me/all-timezone-cities")
   .then((result) => result.json())
   .then((data) => {
+    let jsondata = {};
+    for (const city of data) {
+      jsondata[city.cityName.toLowerCase()] = city;
+    }
+    data = jsondata;
+    console.log(data);
     let val = new Json_data(data);
     val.topSection();
     val.sortCities("sun");
     val.continent("continent");
+    val.getTime();
     setInterval(val.getTime.bind(val), 1000);
   });
-
-//Constructor Function stores all the city data
+/**
+ * @class Json_data
+ * @description This is a Parent Class contains Constructor function
+ */
 class Json_data {
+  /**
+   * Creates an instance of Json_data.
+   * @param {Object} data
+   * @description This constructor function initializes the variables that are used widely in other functions, it also creates an array with json object
+   */
   constructor(data) {
     this.weatherData = data;
     this.selectedCity = "nome";
@@ -24,6 +38,10 @@ class Json_data {
       this.weatherArray.push(this.weatherData[citykey]);
     }
   }
+  /**
+   *@description displays all the city name on the datalist,contains all the Event Listeners on this project and also this function calls another function getWeather()
+   * @memberof Json_data
+   */
   topSection() {
     //setting the dropdown datalist
     let option = ``;
@@ -53,12 +71,15 @@ class Json_data {
     document
       .getElementById("sortContinent")
       .addEventListener("click", this.continent.bind(this, "continent"));
-    this.getWeather(this.selectedCity);
+    this.getWeather();
   }
   //Setting the top section weather and TimeLine for nxt 5 hrs
-  getWeather() {
+  /**
+   *@description This function is a Asynchronous and send  multiple API request to the server to retrieve the next 5 hrs Weather of a city, It also sets the Current time and some weather data of the user selected city in the top section and it also Validates the Input box and the Top Section.
+   * @memberof Json_data
+   */
+  async getWeather() {
     var cityName = this.weatherData[this.selectedCity];
-    console.log(cityName);
     var nxt;
     var setTimeLine = ``;
     this.b = this.keys.includes(this.selectedCity);
@@ -66,6 +87,22 @@ class Json_data {
       document.getElementById("data").style.border = "2px solid red";
     }
     if (this.b) {
+      let data = await fetch(
+        `https://soliton.glitch.me?city=${
+          this.weatherData[this.selectedCity].cityName
+        }`
+      ).then((data) => data.json());
+      let nxtHrs = await fetch("https://soliton.glitch.me/hourly-forecast", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          hours: 6,
+        }),
+      });
+      nxtHrs = await nxtHrs.json();
       document.getElementById("temp").innerHTML = cityName.temperature;
       document.getElementById("humid").innerHTML = cityName.humidity;
       document.getElementById("precipitation").innerHTML =
@@ -76,10 +113,11 @@ class Json_data {
       document.querySelector(
         ".grid-child-1"
       ).innerHTML = `<img id="bg-img" src="Asset/${this.selectedCity}.svg" width="90px" />`;
-      var time = this.getTime();
-      var hour = time[0] + 1;
+      var n = parseInt(this.getTime());
+      n += 1;
       for (var t = -1; t < 5; t++) {
-        nxt = t == -1 ? "Now" : parseInt(hour++);
+        if (n > 23) n = 0;
+        nxt = t == -1 ? "Now" : parseInt(n++);
         setTimeLine += `
     <div class="weather-icon">
     <p id="time11">${nxt}</p>
@@ -89,15 +127,15 @@ class Json_data {
     <img id="w_icon" src="Asset/${
       t == -1
         ? this.nxtFiveHrs(parseInt(cityName.temperature))
-        : this.nxtFiveHrs(parseInt(cityName.nextFiveHrs[t]))
+        : this.nxtFiveHrs(parseInt(nxtHrs.temperature[t]))
     }.svg" /><br />
     <p id="nxtTime1">
     ${
       t == 4
-        ? 25
+        ? nxtHrs.temperature[4]
         : t != -1
-        ? parseInt(cityName.nextFiveHrs[t])
-        : parseInt(cityName.temperature)
+        ? nxtHrs.temperature[t]
+        : cityName.temperature
     }
       </p>
     <br />
@@ -138,6 +176,12 @@ class Json_data {
     }
   }
   //set appropriate weather icon for the nxt 5 hrs
+  /**
+   * @param {temperature of a city for nxt 5 Hours} temp
+   * @return {An Icon which matches the weather}
+   * @description This function Returns a suitable weather icon for the specified temperature of a city
+   * @memberof Json_data
+   */
   nxtFiveHrs(temp) {
     let icon;
     if (temp > 29) icon = "sunnyIcon";
@@ -147,17 +191,37 @@ class Json_data {
     return icon;
   }
   //Calcualting the current Time and date for the choosen city
+  /**
+   * @return {current hour of the user selected city}
+   * @description This Function Provides with the current time and Date for a selected city in the whole project
+   * @memberof Json_data
+   */
   getTime() {
     let city = this.weatherData[this.selectedCity];
     var cityName = city.cityName;
     cityName = cityName.toLowerCase();
-
+    const monthNames = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+    const d = new Date();
+    const date =
+      d.getDate() + "-" + monthNames[d.getMonth()] + "-" + d.getFullYear();
     var tdyDate = this.weatherData[cityName].dateAndTime;
     tdyDate = tdyDate.split(",", 1);
-    console.log(tdyDate);
-    document.getElementById("tdyDate").innerHTML = tdyDate;
+    document.getElementById("tdyDate").innerHTML = date;
     var dates = new Date().toLocaleString("en-US", {
-      timeZone: this.weatherData[cityName].timeZone,
+      timeZone: this.weatherData[this.selectedCity].timeZone,
       timeStyle: "medium",
       hourCycle: "h24",
     });
@@ -165,18 +229,25 @@ class Json_data {
     var ampm = parseInt(dates.slice(0, 2));
     dates = dates.slice(0, 8);
     var day = ampm >= 12 ? "pmState" : "amState";
-    var dayMode = ampm >= 12 ? "Pm" : "Am";
     document.getElementById("time").innerHTML = `${dates}&nbsp;&nbsp;<img
           src="Asset/${day}.svg"
           />`;
-    return [ampm, dates, day, dayMode];
+    return dates.split(":")[0];
   }
-  //Getting input from Input box - top section
+  /**
+   *@description this Function gets the value[city name] from the user and also calls getWeather function
+   * @memberof Json_data
+   */
   inputCity() {
     this.selectedCity = document.getElementById("data").value.toLowerCase();
     this.getWeather();
   }
   //This function provides a sorted list of cities based on user preference
+  /**
+   * @param {Gets a string as an input which tells wheather user clicked sun / rain / snow icon in middle section} data
+   * @description This Function sorts the city object by, wheather it is sunny/rainy/snowy and pushes it to a new array
+   * @memberof Json_data
+   */
   sort(data) {
     var i = 0;
     this.sortedArray = [];
@@ -236,29 +307,54 @@ class Json_data {
     }
   }
   //Displaying the sorted cities and Updating the Display spinner box
+  /**
+   * @param {Type contains the user clicked icon, ex sun / rain / snow} type
+   * @return {if the value of input box is < 3 then it will return from the function}
+   * @description This function displays the user selected city in mid-section according to the input value given by the user in display top box
+   * @memberof Json_data
+   */
   sortCities(type) {
     document.getElementById("sun").style.borderBottom = "2.5px solid blue";
     document.getElementById("snow").style.borderBottom = "none";
     document.getElementById("rain").style.borderBottom = "none";
     var input_box = document.getElementById("input_box").value;
-    var cities = ``;
-    var time;
+    if (input_box < 3) {
+      input_box.value = 3;
+      return;
+    }
+    var cities = ``,
+      ampm;
     if (type != "displayTop") {
       this.val = type;
     }
     this.sort(this.val);
+    const monthNames = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+    const d = new Date();
+    const date =
+      d.getDate() + "-" + monthNames[d.getMonth()] + "-" + d.getFullYear();
     for (var k = 0; k < this.sortedArray.length; k++) {
-      var tdyDate = this.sortedArray[k].dateAndTime;
-      tdyDate = tdyDate.split(",", 1);
-      time = this.sortedArray[k].timeZone;
       var dates = new Date().toLocaleString("en-US", {
-        timeZone: time,
+        timeZone: this.sortedArray[k].timeZone,
         timeStyle: "medium",
         hourCycle: "h24",
       });
-      var ampm = parseInt(dates.slice(0, 2));
+      //finding weather the time is AM or PM
       dates = dates.slice(0, 5);
-      var day = ampm >= 12 ? "Pm" : "Am";
+      ampm = dates.slice(0, 2);
+      var day = ampm >= 12 ? "PM" : "AM";
       if (input_box > k) {
         cities += `<div class="img-1">
             <img class="main-img" src="Asset/${
@@ -271,7 +367,7 @@ class Json_data {
             </div>
             <div class="timeDate">
             <div>${dates + " " + day}</div>
-            <div>${tdyDate}</div>
+            <div>${date}</div>
           </div>
             <div class="side-icon">
               <div>
@@ -294,10 +390,14 @@ class Json_data {
         }
       }
     }
-
     document.querySelector(".mid-mid").innerHTML = cities;
   }
   //Sorting cities in Bottom section
+  /**
+   * @param {sortKey conatins the value of button clicked by user in bottom section, ex: continent / temperature} sortKey
+   * @description This Function sorts the bottom section cities by Continent wise or Temperature wise and displays it accordingly
+   * @memberof Json_data
+   */
   continent(sortKey) {
     const sortContinent = document.querySelector("#sortContinentImg");
     const sortTemperature = document.querySelector("#sortTemperatureImg");
@@ -320,16 +420,17 @@ class Json_data {
         Cont_temp * (parseInt(a.temperature) - parseInt(b.temperature))
       );
     });
-    var data = ``;
+    var data = ``,
+      ampm;
     for (var i = 0; i < 12; i++) {
       var dates = new Date().toLocaleString("en-US", {
         timeZone: this.weatherArray[i].timeZone,
         timeStyle: "medium",
         hourCycle: "h24",
       });
-      var ampm = parseInt(dates.slice(0, 2));
-      dates = dates.slice(0, 9);
-      var day = ampm >= 12 ? "Pm" : "Am";
+      dates = dates.slice(0, 5);
+      ampm = dates.slice(0, 2);
+      var day = ampm >= 12 ? "PM" : "AM";
       data += `
               <div class="container">
               <div class="cont-1">
@@ -337,7 +438,7 @@ class Json_data {
                 <p>${this.weatherArray[i].temperature}</p>
               </div>
               <div class="cont-2">
-                <p>${this.weatherArray[i].cityName}, ${dates} ${day}</p>
+                <p>${this.weatherArray[i].cityName}, ${dates + " " + day}</p>
                 <img src="Asset/humidityIcon.svg" />
                 <p>${this.weatherArray[i].humidity}</p>
               </div>
@@ -347,11 +448,16 @@ class Json_data {
     document.querySelector(".bot-mid").innerHTML = data;
   }
 }
-//Function for scroll Buttons
+/**
+ *@description This Function makes a scroll left for about 150px
+ */
 function leftScroll() {
   const left = document.querySelector(".mid-mid");
   left.scrollBy(150, 0);
 }
+/**
+ *@description This Function makes a scroll Right for about -150px
+ */
 function rightScroll() {
   const right = document.querySelector(".mid-mid");
   right.scrollBy(-150, 0);
