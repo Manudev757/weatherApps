@@ -1,5 +1,7 @@
-fetch("https://soliton.glitch.me/all-timezone-cities")
-  .then((result) => result.json())
+fetch("http://localhost:2020/allTimeZone")
+  .then((val) => val.text())
+  .then((val) => val.replace(/�/g, "°"))
+  .then((result) => JSON.parse(result))
   .then((data) => {
     let jsondata = {};
     for (const city of data) {
@@ -81,6 +83,7 @@ class Json_data {
   async getWeather() {
     var cityName = this.weatherData[this.selectedCity];
     var nxt;
+    var cities = this.weatherData;
     var setTimeLine = ``;
     this.b = this.keys.includes(this.selectedCity);
     if (this.selectedCity === "") {
@@ -88,11 +91,11 @@ class Json_data {
     }
     if (this.b) {
       let data = await fetch(
-        `https://soliton.glitch.me?city=${
+        `http://localhost:2020/city/${
           this.weatherData[this.selectedCity].cityName
         }`
       ).then((data) => data.json());
-      let nxtHrs = await fetch("https://soliton.glitch.me/hourly-forecast", {
+      let nxtHrs = await fetch("http://localhost:2020/hourlyForecast", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -101,8 +104,12 @@ class Json_data {
           ...data,
           hours: 6,
         }),
-      });
-      nxtHrs = await nxtHrs.json();
+      })
+        .then((val) => val.text())
+        .then((val) => val.replace(/�/g, "°"))
+        .then((result) => JSON.parse(result));
+      nxtHrs = await nxtHrs;
+      console.log(nxtHrs);
       document.getElementById("temp").innerHTML = cityName.temperature;
       document.getElementById("humid").innerHTML = cityName.humidity;
       document.getElementById("precipitation").innerHTML =
