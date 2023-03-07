@@ -5,7 +5,6 @@ const path = require("path");
 
 app.use(express.json());
 
-//Importing routes page that contains the functions called to timezone.js
 const weatherForecast = require("./Server/routes");
 
 //display html file
